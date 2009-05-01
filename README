@@ -1,0 +1,18 @@
+== Required Gems
+
+authlogic
+
+== Development Setup
+
+Run the following commands:
+
+sudo gem install authlogic
+sudo gem install rspec
+sudo gem install rspec-rails
+gem source -a http://gems.github.com
+sudo gem install thoughtbot-factory_girl
+
+rake db:migrate
+rake bootstrap:all
+
+

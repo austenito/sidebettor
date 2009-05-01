@@ -1,0 +1,20 @@
+Current User: <%= current_user.login %>
+<p>
+<%= link_to 'Create Bet', new_bet_path %>
+<p>
+  
+<h1>Bets you own</h1>
+<% for user_bet in @user_bets %>
+<%= user_bet.to_json %>
+<p>
+<% end%>
+
+
+<h1>Pending requests</h1>
+<% for pending_request in @pending_requests %>
+  <%= pending_request.to_json %>
+  <%= button_to "Accept Bet", {:controller => "bet_requests", :action => "update", :has_accepted => true, :request_id => pending_request.id} , :method => :put %>
+  <%= button_to "Deny Bet", :controller => "BetRequests", :action => "update", :has_accepted => false %> 
+<p>
+<% end%>
+  
