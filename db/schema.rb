@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090501090251) do
+ActiveRecord::Schema.define(:version => 20090502212944) do
 
   create_table "bet_conditions", :force => true do |t|
     t.string   "condition",    :null => false
@@ -32,6 +32,13 @@ ActiveRecord::Schema.define(:version => 20090501090251) do
     t.boolean  "has_accepted", :null => false
     t.integer  "bet_id",       :null => false
     t.integer  "user_id",      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bet_statuses", :force => true do |t|
+    t.boolean  "is_completed", :null => false
+    t.integer  "bet_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
