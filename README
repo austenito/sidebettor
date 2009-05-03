@@ -1,6 +1,8 @@
 == Required Gems
 
 authlogic
+factory-girl
+rspec
 
 == Development Setup
 
@@ -13,6 +15,8 @@ gem source -a http://gems.github.com
 sudo gem install thoughtbot-factory_girl
 
 rake db:migrate
+rake db:migrate RAILS_ENV=test
 rake bootstrap:all
+
 
 

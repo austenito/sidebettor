@@ -33,20 +33,25 @@ class BetsController < ApplicationController
     prize = Prize.new(:prize_category_id => prize_category.id, :prize => params[:bet][:prize])
     prize.save
     
-    #Create the bet
+    # Create the bet
     title = params[:bet][:title]
     end_date = Date.today
     bet = Bet.new(:title => title, :end_date => end_date, :user_id => current_user.id, :prize_id => prize.id)
     bet.bet_conditions.push(user_condition)
     bet.bet_conditions.push(challenger_condition)
-      
+    
     # Create the bet requests
     user_request = BetRequest.new(:bet_id => bet.id, :user_id => current_user.id, :is_pending => false, :has_accepted => false)
     challenger_request = BetRequest.new(:bet_id => bet.id, :user_id => challenger_conditions[:user_id], :is_pending => true, :has_accepted => false)
     bet.bet_requests.push(user_request)
     bet.bet_requests.push(challenger_request)
-    
+
     bet.save    
+    
+    # Create the bet status
+    bet_status = BetStatus.new(:is_completed => false, :bet_id => bet.id)    
+    bet_status.save
+    
     redirect_to dashboard_path
   end
   

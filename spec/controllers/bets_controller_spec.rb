@@ -38,6 +38,11 @@ describe BetsController do
     BetRatio.should_receive(:new).twice.and_return(bet_ratio_mock)
     bet_ratio_mock.should_receive(:save).twice    
     
+    # Creates the mocks for BetStatus
+    bet_status_mock = mock(BetStatus)    
+    BetStatus.should_receive(:new).once.and_return(bet_status_mock)
+    bet_status_mock.should_receive(:save).once
+    
     # Test a request to create bet.
     user_bet_conditions = { :bet_type_id => 1, :condition => 'User Condition'} 
     challenger_bet_conditions = { :bet_type_id => 1, :condition => 'Challenger Condition', :user_id => 2} 
