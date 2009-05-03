@@ -7,7 +7,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :bet
   map.resource :dashboard
   map.resource :bet_request
-
+  map.resource :bet_status
+  
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end

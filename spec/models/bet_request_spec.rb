@@ -1,14 +1,16 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe Prize do
+describe BetRequest do
   before(:each) do
     @valid_attributes = {
-      :prize => "Prize",
-      :prize_category_id => 1
+      :is_pending => true,
+      :has_accepted => false,
+      :bet_id => 1,
+      :user_id => 1
     }
   end
 
   it "should create a new instance given valid attributes" do
-    Prize.create!(@valid_attributes)
+    BetRequest.create!(@valid_attributes)
   end
 end

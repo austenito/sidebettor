@@ -17,6 +17,6 @@ sudo gem install thoughtbot-factory_girl
 rake db:migrate
 rake db:migrate RAILS_ENV=test
 rake bootstrap:all
-
+rake spec
 
 

@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20090502212944) do
   end
 
   create_table "bet_ratios", :force => true do |t|
-    t.integer  "ratio"
+    t.integer  "ratio",      :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -59,13 +59,13 @@ ActiveRecord::Schema.define(:version => 20090502212944) do
   end
 
   create_table "prize_categories", :force => true do |t|
-    t.string   "prize_category"
+    t.string   "prize_category", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "prizes", :force => true do |t|
-    t.string   "prize"
+    t.string   "prize",             :null => false
     t.integer  "prize_category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
