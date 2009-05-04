@@ -3,7 +3,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe BetRatio do
   before(:each) do
     @valid_attributes = {
-      :ratio => 1
+      :ratio => 1,
+      :user_id => 1,
+      :bet_id => 1
     }
   end
 

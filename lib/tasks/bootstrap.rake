@@ -1,6 +1,6 @@
 namespace :bootstrap do
-   desc "Adds the default users"
-   task :test_users => :environment do
+   desc "Adds the data used to test the app"
+   task :test_data => :environment do
      default = User.create(
        :last_login_at => '2009-04-26 07:25:32',
        :last_request_at => '2009-04-26 07:25:32',
@@ -41,35 +41,17 @@ namespace :bootstrap do
         :password_confirmation => 'admin',
         :password => 'admin')      
         
-       test =  User.create(
-          :last_login_at => '2009-04-26 07:25:32',
-          :last_request_at => '2009-04-26 07:25:32',
-          :updated_at => '2009-04-26 07:25:32',
-          :current_login_ip => '127.0.0.1',
-          :current_login_at => '2009-04-26 07:25:32',
-          :failed_login_count => 0, 
-          :login_count => 1,
-          :last_login_ip => '127.0.0.1',
-          :created_at => '2009-04-26 07:25:32',
-          :crypted_password => '868d1aa66cadfb7c3371a1b5477d10e6f8eee7d8ee9afed6d7ac8800cc3963dd68ce87137d1fcf29258b2db23ef3734416372fc08575bfa53c6703c36c531865',
-          :single_access_token => 'sOapzbwB0vD174DwEXhf',
-          :perishable_token => 'FrUy-giXpwbNthg_LLPB',
-          :password_salt => 'Rr8zRE-sHLxnw7-i0tUO', 
-          :persistence_token => '7f530f15f60d8c454aecfcef9f1e8629273f421cc253f7540b20c6075d953198b0f70de70f2f18faef875182270f6f5b9970f3add9e7d31d76406b1d4729acf3',
-          :login => 'test', 
-          :email => 'test@test.com',
-          :password_confirmation => 'test',
-          :password => 'test')
-                    
        bet = Bet.create(:title => "Default User Bet", :end_date => Date.today, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)
        BetRequest.create(:is_pending => false, :has_accepted => true, :bet_id => bet.id, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)
        BetRequest.create(:is_pending => true, :has_accepted => false, :bet_id => bet.id, :user_id => admin.id, :created_at => Date.today, :updated_at => Date.today)
-       BetRequest.create(:is_pending => true, :has_accepted => false, :bet_id => bet.id, :user_id => test.id, :created_at => Date.today, :updated_at => Date.today)
+       Prize.create(:bet_id => bet.id, :name => "Default Prize", :prize_category_id => 0)
+       BetStatus.create(:bet_id => bet.id, :is_completed => false)
        
        bet = Bet.create(:title => "Admin User Bet", :end_date => Date.today, :user_id => admin.id, :created_at => Date.today, :updated_at => Date.today)
        BetRequest.create(:is_pending => false, :has_accepted => true, :bet_id => bet.id, :user_id => admin.id, :created_at => Date.today, :updated_at => Date.today)
-       BetRequest.create(:is_pending => true, :has_accepted => false, :bet_id => bet.id, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)          
-       BetRequest.create(:is_pending => true, :has_accepted => false, :bet_id => bet.id, :user_id => test.id, :created_at => Date.today, :updated_at => Date.today)       
+       BetRequest.create(:is_pending => true, :has_accepted => false, :bet_id => bet.id, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)                
+       Prize.create(:bet_id => bet.id, :name => "Admin Prize", :prize_category_id => 0)
+       BetStatus.create(:bet_id => bet.id, :is_completed => false)       
    end
    
    desc "Adds the betting types"
@@ -81,6 +63,6 @@ namespace :bootstrap do
    end
    
    desc "Loads seed data into the database"
-   task :all => [:bet_types, :test_users]
+   task :all => [:bet_types, :test_data]
  end
  

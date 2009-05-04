@@ -1,20 +1,45 @@
-Current User: <%= current_user.login %>
-<p>
-<%= link_to 'Create Bet', new_bet_path %>
-<p>
-  
-<h1>Bets you own</h1>
-<% for user_bet in @user_bets %>
-<%= user_bet.to_json %>
-<p>
-<% end%>
+<div class="container_16">  
+    
+  <div class="grid_16"><h1>Active Bets</h1></div>  
+  <div id="bet_container">
+    <%= render :partial => 'bet_header' %>
+    <% for user_bet in @user_bets %>
+      <% if !user_bet.is_pending %>    
+        <div class="grid_5"><%= user_bet.title %></div>
+        <div class="grid_5"><%= user_bet.prize.name %></div>    
+        <div class="grid_4">    
+          <%= link_to "Complete" %>         
+        </div>
+      <% end %>
+    <% end%>
+  </div>
 
-
-<h1>Pending requests</h1>
-<% for pending_request in @pending_requests %>
-  <%= pending_request.to_json %>
-  <%= button_to "Accept Bet", {:controller => "bet_requests", :action => "update", :has_accepted => true, :request_id => pending_request.id} , :method => :put %>
-  <%= button_to "Deny Bet", :controller => "BetRequests", :action => "update", :has_accepted => false %> 
-<p>
-<% end%>
+  <div class="grid_16"><h1>Pending Bets</h1></div>          
+  <div id="bet_container">  
+    <%= render :partial => 'bet_header' %>  
+    <% for user_bet in @user_bets %>
+      <% if user_bet.user_id == current_user.id %>    
+        <div class="grid_5"><%= user_bet.title %></div>
+        <div class="grid_5"><%= user_bet.prize.name %></div>    
+        <div class="grid_4">
+          <%= link_to "Cancel" %>         
+        </div>
+      <% end %>
+    <% end%>    
+  </div>  
   
+  <div class="grid_16"><h1>Bet Requests</h1></div>  
+    <%= render :partial => 'bet_header' %>
+  
+    <div id="bet_container" class="container_16">
+      <% for pending_bet in @pending_bets %>
+
+          <div class="grid_5"><%= pending_bet.title %></div>
+          <div class="grid_5"><%= pending_bet.prize.name %></div>
+          <div class="grid_4">
+            <%= link_to "Accept Bet", {:controller => "bet_requests", :action => "update", :has_accepted => true, :bet_id => pending_bet.id} , :method => :put %>
+            <%= link_to "Deny Bet", :controller => "BetRequests", :action => "update", :has_accepted => false, :bet_id => pending_bet.id %>
+          </div>
+      <% end %>
+    </div>
+</div>  

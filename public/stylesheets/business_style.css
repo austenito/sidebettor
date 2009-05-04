@@ -1,0 +1,62 @@
+/* css Zen Garden submission 175 - 'Business Style', by Gunta Klavina, http://www.klavina.com/ */
+/* css released under Creative Commons License - http://creativecommons.org/licenses/by-nc-sa/1.0/  */
+/* All associated graphics copyright 2005, Gunta Klavina */
+/* Added: July 9th, 2005 */
+
+/* IMPORTANT */
+/* This design is not a template. You may not reproduce it elsewhere without the 
+   designer's written permission. However, feel free to study the CSS and use 
+   techniques you learn from it elsewhere. */
+
+
+
+body
+    {
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font: 13px Trebuchet MS, Lucida Sans Unicode, Arial, sans-serif;
+    background: #E2EBED;
+    }
+a
+    {
+    color: #307082;
+    }
+a:hover
+    {
+    color: #D60808;
+    }
+acronym
+    {
+    border: none;
+    }
+
+h1
+    {
+    width: 156px;
+    height: 30px;
+    overflow: hidden;
+    margin: 0;
+    }
+h1 span
+    {
+    display: none;
+    }
+h2
+    {
+    font-size: 12px;
+    margin: 0;
+    }
+
+#bet_container
+    {
+    padding-bottom: 125px;
+    }
+/*#quickSummary .p2
+    {
+    font-size: 12px;
+    position: absolute;
+    top: 65px;
+    right: 20px;
+    margin: 0;
+    }*/

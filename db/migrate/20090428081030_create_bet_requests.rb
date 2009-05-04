@@ -3,7 +3,8 @@ class CreateBetRequests < ActiveRecord::Migration
     create_table :bet_requests do |t|
       t.boolean :is_pending, :null => false      
       t.boolean :has_accepted, :null => false      
-      t.references :bet, :user, :null => false
+      t.integer :bet_id, :null => false
+      t.integer :user_id, :null => false      
       t.timestamps
     end
   end

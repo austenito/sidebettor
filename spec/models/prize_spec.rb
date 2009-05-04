@@ -3,7 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Prize do
   before(:each) do
     @valid_attributes = {
-      :prize => "Prize",
+      :name => "Prize",
+      :bet_id => 1,
       :prize_category_id => 1
     }
   end

@@ -1,8 +1,9 @@
 class CreatePrizes < ActiveRecord::Migration
   def self.up
     create_table :prizes do |t|
-      t.string :prize, :null => false
-      t.references :prize_category
+      t.string :name,  :null => false
+      t.integer :bet_id, :null => false
+      t.integer :prize_category_id, :null => false
       t.timestamps
     end
   end

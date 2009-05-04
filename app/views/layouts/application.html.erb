@@ -6,21 +6,11 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>SideBettor</title>
   <%= stylesheet_link_tag '960' %>
+  <%= stylesheet_link_tag 'business_style' %>  
 </head>
 <body>
 <p style="color: green"><%= flash[:notice] %></p>
-  <div class="container_16">
-    <div class="grid_12 prefix_12">
-      <%= render :partial => 'layouts/top' %>
-    </div>
-  </div>
-
-
-  <div class="container_16">
-    <div class="grid_16">
-      <%= yield  %>
-    </div>
-  </div>
-
+  <%= render :partial => 'layouts/top' %>
+  <%= yield  %>
 </body>
 </html>

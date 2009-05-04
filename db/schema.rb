@@ -13,16 +13,18 @@ ActiveRecord::Schema.define(:version => 20090502212944) do
 
   create_table "bet_conditions", :force => true do |t|
     t.string   "condition",    :null => false
-    t.integer  "user_id"
-    t.integer  "bet_id"
-    t.integer  "bet_type_id"
-    t.integer  "bet_ratio_id"
+    t.integer  "user_id",      :null => false
+    t.integer  "bet_id",       :null => false
+    t.integer  "bet_type_id",  :null => false
+    t.integer  "bet_ratio_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "bet_ratios", :force => true do |t|
     t.integer  "ratio",      :null => false
+    t.integer  "bet_id",     :null => false
+    t.integer  "user_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -38,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20090502212944) do
 
   create_table "bet_statuses", :force => true do |t|
     t.boolean  "is_completed", :null => false
-    t.integer  "bet_id"
+    t.integer  "bet_id",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -52,8 +54,7 @@ ActiveRecord::Schema.define(:version => 20090502212944) do
   create_table "bets", :force => true do |t|
     t.string   "title",      :null => false
     t.date     "end_date",   :null => false
-    t.integer  "user_id"
-    t.integer  "prize_id"
+    t.integer  "user_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -65,8 +66,9 @@ ActiveRecord::Schema.define(:version => 20090502212944) do
   end
 
   create_table "prizes", :force => true do |t|
-    t.string   "prize",             :null => false
-    t.integer  "prize_category_id"
+    t.string   "name",              :null => false
+    t.integer  "bet_id",            :null => false
+    t.integer  "prize_category_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

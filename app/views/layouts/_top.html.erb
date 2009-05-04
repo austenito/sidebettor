@@ -1,6 +1,16 @@
-<div id="header">
-    <%= link_to "Dashboard" %>
-    <%= link_to "Create Bet" %>        
-    <%= link_to "Settings" %>    
-    <%= link_to 'Logout' %>
+<div class="container_16">
+   
+     <% if current_user != nil %>
+       <div class="grid_3 suffix_7" id="header_user">
+         User: <%= current_user.login %>
+       </div>     
+       <div class="grid_6" id="header_options">        
+       <%= link_to "Dashboard", dashboard_path %>
+       <%= link_to "Create Bet", new_bet_path %>        
+       <%= link_to "Settings" %>    
+       <%= link_to 'Logout', user_session_path, :method => :delete %>
+     <% else %>
+       <%= link_to 'Login', user_session_path %>
+     <% end %>
+       </div>
 </div>
