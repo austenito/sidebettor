@@ -12,11 +12,9 @@
 ActiveRecord::Schema.define(:version => 20090502212944) do
 
   create_table "bet_conditions", :force => true do |t|
-    t.string   "condition",    :null => false
-    t.integer  "user_id",      :null => false
-    t.integer  "bet_id",       :null => false
-    t.integer  "bet_type_id",  :null => false
-    t.integer  "bet_ratio_id", :null => false
+    t.string   "condition",  :null => false
+    t.integer  "user_id",    :null => false
+    t.integer  "bet_id",     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -41,12 +39,6 @@ ActiveRecord::Schema.define(:version => 20090502212944) do
   create_table "bet_statuses", :force => true do |t|
     t.boolean  "is_completed", :null => false
     t.integer  "bet_id",       :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "bet_types", :force => true do |t|
-    t.string   "bet_type",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

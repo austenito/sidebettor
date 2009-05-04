@@ -5,9 +5,13 @@
     <%= render :partial => 'bet_header' %>
     <% for user_bet in @user_bets %>
       <% if !user_bet.is_pending %>    
-        <div class="grid_5"><%= user_bet.title %></div>
-        <div class="grid_5"><%= user_bet.prize.name %></div>    
-        <div class="grid_4">    
+      <div class="grid_5"><%= user_bet.title %></div>
+      <div class="grid_3"><%= user_bet.get_challenger %></div>
+      <div class="grid_1">
+        <%= user_bet.get_bettor_ratio %>:<%= user_bet.get_challenger_ratio %>
+      </div>      
+      <div class="grid_5"><%= user_bet.prize.name %></div>    
+      <div class="grid_2">
           <%= link_to "Complete" %>         
         </div>
       <% end %>
@@ -17,11 +21,15 @@
   <div class="grid_16"><h1>Pending Bets</h1></div>          
   <div id="bet_container">  
     <%= render :partial => 'bet_header' %>  
-    <% for user_bet in @user_bets %>
-      <% if user_bet.user_id == current_user.id %>    
-        <div class="grid_5"><%= user_bet.title %></div>
-        <div class="grid_5"><%= user_bet.prize.name %></div>    
-        <div class="grid_4">
+    <% for pending_bet in @pending_bets %>
+      <% if pending_bet.is_pending %>    
+        <div class="grid_5"><%= pending_bet.title %></div>
+        <div class="grid_3"><%= pending_bet.get_challenger.login %></div>
+        <div class="grid_1">
+          <%= pending_bet.get_bettor_ratio %>:<%= pending_bet.get_challenger_ratio %>
+        </div>        
+        <div class="grid_5"><%= pending_bet.prize.name %></div>    
+        <div class="grid_2">
           <%= link_to "Cancel" %>         
         </div>
       <% end %>
@@ -29,16 +37,17 @@
   </div>  
   
   <div class="grid_16"><h1>Bet Requests</h1></div>  
-    <%= render :partial => 'bet_header' %>
+    <div class="grid_5"><h3>Title</h3></div>
+    <div class="grid_5 suffix_6"><h3>Prize</h3></div>
   
     <div id="bet_container" class="container_16">
-      <% for pending_bet in @pending_bets %>
+      <% for requested_bet in @requested_bets %>
 
-          <div class="grid_5"><%= pending_bet.title %></div>
-          <div class="grid_5"><%= pending_bet.prize.name %></div>
+          <div class="grid_5"><%= requested_bet.title %></div>
+          <div class="grid_5"><%= requested_bet.prize.name %></div>
           <div class="grid_4">
-            <%= link_to "Accept Bet", {:controller => "bet_requests", :action => "update", :has_accepted => true, :bet_id => pending_bet.id} , :method => :put %>
-            <%= link_to "Deny Bet", :controller => "BetRequests", :action => "update", :has_accepted => false, :bet_id => pending_bet.id %>
+            <%= link_to "Accept", {:controller => "bet_requests", :action => "update", :has_accepted => true, :bet_id => requested_bet.id} , :method => :put %>
+            <%= link_to "Deny", :controller => "BetRequests", :action => "update", :has_accepted => false, :bet_id => requested_bet.id %>
           </div>
       <% end %>
     </div>

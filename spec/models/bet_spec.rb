@@ -1,7 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Bet do
+  require "authlogic/test_case" # include at the top of test_helper.rb
+  setup :activate_authlogic # run before tests are executed
+    
   before(:each) do
+    @session = UserSession.create Factory.build(:default_user)
+    
     @valid_attributes = {
       :title => "Bet Title",
       :end_date => Date.today,
@@ -39,5 +44,29 @@ describe Bet do
      bet.bet_requests.push(BetRequest.create!(@accepted_request_attributes))
      bet.bet_requests.push(BetRequest.create!(@accepted_request_attributes))
      bet.is_pending.should == false
-   end
+  end
+   
+  it "should return challenger" do
+    challenger = Factory.create(:admin_user)
+    bet = Bet.create!(@valid_attributes)    
+    bet.bet_requests.push(BetRequest.create!(@pending_request_attributes))
+    bet.bet_requests.push(BetRequest.create!(:is_pending => false, :has_accepted => false, :bet_id => 1, :user_id => challenger.id))
+    bet.get_challenger.id.should == challenger.id
+  end
+  
+  it "should return bettor ratio" do
+    challenger = Factory.create(:admin_user)
+    bet = Bet.create!(@valid_attributes)    
+    bet.bet_ratios.push(BetRatio.create!(:bet_id => bet.id, :user_id => bet.user_id, :ratio => 1))
+    bet.bet_ratios.push(BetRatio.create!(:bet_id => bet.id, :user_id => challenger.id, :ratio => 3))
+    bet.get_bettor_ratio.should == 1
+  end
+  
+  it "should return challenger ratio" do
+    challenger = Factory.create(:admin_user)
+    bet = Bet.create!(@valid_attributes)    
+    bet.bet_ratios.push(BetRatio.create!(:bet_id => bet.id, :user_id => bet.user_id, :ratio => 1))
+    bet.bet_ratios.push(BetRatio.create!(:bet_id => bet.id, :user_id => challenger.id, :ratio => 3))
+    bet.get_challenger_ratio.should == 3
+  end
 end

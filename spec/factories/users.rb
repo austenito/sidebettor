@@ -11,7 +11,7 @@ Factory.define :admin_user , :class => User do |u|
   u.password "admin"
   u.password_confirmation "admin"
   u.email "admin@admin.com"
-  u.single_access_token "k3cFzLIQnZ4MHRmJvJzg"
+  u.single_access_token "k3cFzLIQnZ4MHRmJvJzh"
 end
 
 Factory.define :invalid_user , :class => User do |u|

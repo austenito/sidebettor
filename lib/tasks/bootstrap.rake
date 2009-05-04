@@ -41,28 +41,26 @@ namespace :bootstrap do
         :password_confirmation => 'admin',
         :password => 'admin')      
         
-       bet = Bet.create(:title => "Default User Bet", :end_date => Date.today, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)
+       bet = Bet.create(:title => "Admin times out in 5 seconds", :end_date => Date.today, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)
        BetRequest.create(:is_pending => false, :has_accepted => true, :bet_id => bet.id, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)
        BetRequest.create(:is_pending => true, :has_accepted => false, :bet_id => bet.id, :user_id => admin.id, :created_at => Date.today, :updated_at => Date.today)
        Prize.create(:bet_id => bet.id, :name => "Default Prize", :prize_category_id => 0)
        BetStatus.create(:bet_id => bet.id, :is_completed => false)
+       BetRatio.create(:bet_id => bet.id, :user_id => default.id, :ratio => 1)
+       BetRatio.create(:bet_id => bet.id, :user_id => admin.id, :ratio => 3)       
        
-       bet = Bet.create(:title => "Admin User Bet", :end_date => Date.today, :user_id => admin.id, :created_at => Date.today, :updated_at => Date.today)
+       bet = Bet.create(:title => "Default does nothing", :end_date => Date.today, :user_id => admin.id, :created_at => Date.today, :updated_at => Date.today)
        BetRequest.create(:is_pending => false, :has_accepted => true, :bet_id => bet.id, :user_id => admin.id, :created_at => Date.today, :updated_at => Date.today)
        BetRequest.create(:is_pending => true, :has_accepted => false, :bet_id => bet.id, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)                
        Prize.create(:bet_id => bet.id, :name => "Admin Prize", :prize_category_id => 0)
        BetStatus.create(:bet_id => bet.id, :is_completed => false)       
+       BetRatio.create(:bet_id => bet.id, :user_id => default.id, :ratio => 3)
+       BetRatio.create(:bet_id => bet.id, :user_id => admin.id, :ratio => 1)       
    end
    
    desc "Adds the betting types"
-
-   task :bet_types => :environment do
-     BetType.create(:bet_type => 'Spread')
-     BetType.create(:bet_type => 'Over/Under')
-     BetType.create(:bet_type => 'Qualifier')          
-   end
    
    desc "Loads seed data into the database"
-   task :all => [:bet_types, :test_data]
+   task :all => [:test_data]
  end
  

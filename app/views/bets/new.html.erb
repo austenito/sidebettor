@@ -10,7 +10,6 @@
     
   <h1>Your Betting Terms</h1>
   <% bet_form.fields_for :user_bet_conditions do |bet_condition| %>
-    <p>Bet Type:<%= bet_condition.collection_select :bet_type_id, @bet_types, :id, :bet_type %></p>    
     <p>
     <%= bet_condition.label :condition %><br />
     <%= bet_condition.text_area :condition %><br />
@@ -24,7 +23,6 @@
   <h1> Challenger's Terms</h1>
   <% bet_form.fields_for :challenger_bet_conditions do |bet_condition| %>
     <p>Bettee:<%= bet_condition.collection_select :user_id, @users, :id, :login %></p>
-    <p>Bet Type:<%= bet_condition.collection_select :bet_type_id, @bet_types, :id, :bet_type %></p>    
     <%= bet_condition.label :condition %><br />
     <%= bet_condition.text_area :condition %><br />    
     <%= bet_condition.label :odds %><br />

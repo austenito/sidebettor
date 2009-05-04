@@ -1,3 +1,4 @@
 class BetRatio < ActiveRecord::Base
-  belongs_to :bet_condition
+  belongs_to :user
+  belongs_to :bet
 end

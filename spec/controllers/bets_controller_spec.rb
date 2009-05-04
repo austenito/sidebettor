@@ -32,6 +32,7 @@ describe BetsController do
     # Creates the mocks for a BetCondition
     bet_condition_mock = mock(BetCondition)
     BetCondition.should_receive(:new).twice.and_return(bet_condition_mock)
+    bet_condition_mock.should_receive(:user_id).once    
     
     # Creates the mocks for a BetRatio
     bet_ratio_mock = mock(BetRatio)

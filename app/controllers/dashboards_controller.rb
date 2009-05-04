@@ -12,9 +12,10 @@ class DashboardsController < ApplicationController
                           :conditions => ['bet_requests.user_id = ?', current_user.id],
                           :group => :bet_id)
     @pending_bets = Bet.find(:all, 
-                             :joins => [:bet_requests], 
-                             :conditions => ["bets.user_id != ? AND is_pending = ?", current_user.id, true], 
-                             :group => :bet_id)
+                             :conditions => ["user_id = ?", current_user.id])
+    @requested_bets = Bet.find(:all,
+                               :joins => [:bet_requests],
+                               :conditions => ["bet_requests.user_id = ? AND is_pending = ?", current_user.id, true] )                             
   end
  
   def edit
