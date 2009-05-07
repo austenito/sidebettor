@@ -9,14 +9,10 @@ describe BetsController do
   end
       
   it "Should create a new bet" do
-    # Creates the mocks for a prize and it's category
-    prize_category_mock = mock(PrizeCategory)
-    PrizeCategory.should_receive(:new).once.and_return(prize_category_mock)
-    prize_category_mock.should_receive(:save).once
-    
+    # Creates the mocks for a prize 
     prize_mock = mock(Prize)
     Prize.should_receive(:new).once.and_return(prize_mock)
-    prize_mock.should_receive(:save).once
+    prize_mock.should_receive(:save).once.and_return(true)
           
     # Creates the mocks for a Bet
     bet_mock = mock(Bet)
@@ -32,23 +28,90 @@ describe BetsController do
     # Creates the mocks for a BetCondition
     bet_condition_mock = mock(BetCondition)
     BetCondition.should_receive(:new).twice.and_return(bet_condition_mock)
-    bet_condition_mock.should_receive(:user_id).once    
+    bet_condition_mock.should_receive(:user_id).twice    
     
     # Creates the mocks for a BetRatio
     bet_ratio_mock = mock(BetRatio)
     BetRatio.should_receive(:new).twice.and_return(bet_ratio_mock)
-    bet_ratio_mock.should_receive(:save).twice    
+    bet_ratio_mock.should_receive(:save).twice.and_return(true)
     
     # Creates the mocks for BetStatus
     bet_status_mock = mock(BetStatus)    
     BetStatus.should_receive(:new).once.and_return(bet_status_mock)
-    bet_status_mock.should_receive(:save).once
+    bet_status_mock.should_receive(:save).once.and_return(true)
     
     # Test a request to create bet.
-    user_bet_conditions = { :bet_type_id => 1, :condition => 'User Condition'} 
-    challenger_bet_conditions = { :bet_type_id => 1, :condition => 'Challenger Condition', :user_id => 2} 
+    user_bet_conditions = { :condition => 'User Condition'} 
+    challenger_bet_conditions = { :condition => 'Challenger Condition', :user_id => 2} 
     get 'create', :bet => {:title => '', :user_bet_conditions => user_bet_conditions, :challenger_bet_conditions => challenger_bet_conditions}
     
     response.should redirect_to(dashboard_path)
   end
+  
+  it "Should not create a new bet with invalid prize" do
+    bet_mock = mock(Bet)
+    Bet.should_receive(:new).and_return(bet_mock)
+    bet_mock.should_receive(:bet_conditions).twice.and_return(Array.new)
+    bet_mock.should_receive(:bet_requests).twice.and_return(Array.new)    
+    bet_mock.should_receive(:save).once.and_return(true)
+    bet_mock.should_receive(:delete).once
+        
+    # Creates the mocks for a prize 
+    prize_mock = mock(Prize)
+    Prize.should_receive(:new).once.and_return(prize_mock)
+    prize_mock.should_receive(:save).once.and_return(false)
+    
+    user_bet_conditions = { :condition => 'User Condition'} 
+    challenger_bet_conditions = { :condition => 'Challenger Condition', :user_id => 2}    
+    get 'create', :bet => {:title => '', :user_bet_conditions => user_bet_conditions, :challenger_bet_conditions => challenger_bet_conditions}    
+  end
+  
+  it "Should not create a new bet with invalid user ratio" do
+    bet_mock = mock(Bet)
+    Bet.should_receive(:new).and_return(bet_mock)
+    bet_mock.should_receive(:bet_conditions).twice.and_return(Array.new)
+    bet_mock.should_receive(:bet_requests).twice.and_return(Array.new)    
+    bet_mock.should_receive(:save).once.and_return(true)
+    bet_mock.should_receive(:delete).once
+        
+    # Creates the mocks for a prize 
+    prize_mock = mock(Prize)
+    Prize.should_receive(:new).once.and_return(prize_mock)
+    prize_mock.should_receive(:save).once.and_return(true)
+
+    bet_ratio_mock = mock(BetRatio)
+    BetRatio.should_receive(:new).twice.and_return(bet_ratio_mock)
+    bet_ratio_mock.should_receive(:save).once.and_return(false)
+        
+    user_bet_conditions = { :condition => 'User Condition'} 
+    challenger_bet_conditions = { :condition => 'Challenger Condition', :user_id => 2}    
+    get 'create', :bet => {:title => '', :user_bet_conditions => user_bet_conditions, :challenger_bet_conditions => challenger_bet_conditions}    
+  end  
+  
+  it "Should not create a new bet with invalid bet status" do
+    bet_mock = mock(Bet)
+    Bet.should_receive(:new).and_return(bet_mock)
+    bet_mock.should_receive(:bet_conditions).twice.and_return(Array.new)
+    bet_mock.should_receive(:bet_requests).twice.and_return(Array.new)    
+    bet_mock.should_receive(:save).once.and_return(true)
+    bet_mock.should_receive(:delete).once
+        
+    # Creates the mocks for a prize 
+    prize_mock = mock(Prize)
+    Prize.should_receive(:new).once.and_return(prize_mock)
+    prize_mock.should_receive(:save).once.and_return(true)
+
+    bet_ratio_mock = mock(BetRatio)
+    BetRatio.should_receive(:new).twice.and_return(bet_ratio_mock)
+    bet_ratio_mock.should_receive(:save).twice.and_return(true)
+        
+    # Creates the mocks for BetStatus
+    bet_status_mock = mock(BetStatus)    
+    BetStatus.should_receive(:new).once.and_return(bet_status_mock)
+    bet_status_mock.should_receive(:save)
+            
+    user_bet_conditions = { :condition => 'User Condition'} 
+    challenger_bet_conditions = { :condition => 'Challenger Condition', :user_id => 2}    
+    get 'create', :bet => {:title => '', :user_bet_conditions => user_bet_conditions, :challenger_bet_conditions => challenger_bet_conditions}    
+  end  
 end

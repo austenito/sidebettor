@@ -73,7 +73,7 @@ class BetsController < ApplicationController
   
   def render_invalid_bet
     @users = User.find(:all, :conditions => ['id != ?', current_user.id])
-    render :action => 'new'
+    render :template => 'bets/new.html.erb'
   end
   
   def get_ratio_and_remove(params, symbol)
