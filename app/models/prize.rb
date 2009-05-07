@@ -1,4 +1,5 @@
 class Prize < ActiveRecord::Base
-  has_many :prize_categories
   belongs_to :bet
+  
+  validates_presence_of :name
 end

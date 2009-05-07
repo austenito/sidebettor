@@ -1,9 +1,11 @@
 class Bet < ActiveRecord::Base
-  has_many :bet_conditions
-  has_many :bet_requests
-  has_many :bet_ratios
-  has_one :prize
-  has_one :bet_status
+  has_many :bet_conditions, :dependent => :delete_all
+  has_many :bet_requests, :dependent => :delete_all
+  has_many :bet_ratios, :dependent => :delete_all
+  has_one :prize, :dependent => :delete
+  has_one :bet_status, :dependent => :delete
+  
+  validates_presence_of :title
   
   def is_pending
     for bet_request in bet_requests

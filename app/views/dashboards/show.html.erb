@@ -6,7 +6,7 @@
     <% for user_bet in @user_bets %>
       <% if !user_bet.is_pending %>    
       <div class="grid_5"><%= user_bet.title %></div>
-      <div class="grid_3"><%= user_bet.get_challenger %></div>
+      <div class="grid_3"><%= user_bet.get_challenger.login %></div>
       <div class="grid_1">
         <%= user_bet.get_bettor_ratio %>:<%= user_bet.get_challenger_ratio %>
       </div>      

@@ -58,9 +58,8 @@ ActiveRecord::Schema.define(:version => 20090502212944) do
   end
 
   create_table "prizes", :force => true do |t|
-    t.string   "name",              :null => false
-    t.integer  "bet_id",            :null => false
-    t.integer  "prize_category_id", :null => false
+    t.string   "name",       :null => false
+    t.integer  "bet_id",     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

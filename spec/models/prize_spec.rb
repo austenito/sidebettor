@@ -5,7 +5,6 @@ describe Prize do
     @valid_attributes = {
       :name => "Prize",
       :bet_id => 1,
-      :prize_category_id => 1
     }
   end
 

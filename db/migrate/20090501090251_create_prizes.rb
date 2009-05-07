@@ -3,7 +3,6 @@ class CreatePrizes < ActiveRecord::Migration
     create_table :prizes do |t|
       t.string :name,  :null => false
       t.integer :bet_id, :null => false
-      t.integer :prize_category_id, :null => false
       t.timestamps
     end
   end

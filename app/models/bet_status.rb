@@ -1,3 +1,3 @@
 class BetStatus < ActiveRecord::Base
-  belongs_to :bet
+  belongs_to :bet    
 end
