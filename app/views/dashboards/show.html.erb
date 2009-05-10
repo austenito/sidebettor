@@ -8,7 +8,7 @@
       <div class="grid_5"><%= user_bet.title %></div>
       <div class="grid_3"><%= user_bet.get_challenger.login %></div>
       <div class="grid_1">
-        <%= user_bet.get_bettor_ratio %>:<%= user_bet.get_challenger_ratio %>
+        <%= user_bet.get_bettor_ratio.ratio %>:<%= user_bet.get_challenger_ratio.ratio %>
       </div>      
       <div class="grid_5"><%= user_bet.prize.name %></div>    
       <div class="grid_2">
@@ -26,7 +26,7 @@
         <div class="grid_5"><%= pending_bet.title %></div>
         <div class="grid_3"><%= pending_bet.get_challenger.login %></div>
         <div class="grid_1">
-          <%= pending_bet.get_bettor_ratio %>:<%= pending_bet.get_challenger_ratio %>
+          <%= pending_bet.get_bettor_ratio.ratio %>:<%= pending_bet.get_challenger_ratio.ratio %>
         </div>        
         <div class="grid_5"><%= pending_bet.prize.name %></div>    
         <div class="grid_2">

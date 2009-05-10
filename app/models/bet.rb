@@ -2,7 +2,7 @@ class Bet < ActiveRecord::Base
   has_many :bet_conditions, :dependent => :delete_all
   has_many :bet_requests, :dependent => :delete_all
   has_many :bet_ratios, :dependent => :delete_all
-  has_one :prize, :dependent => :delete
+  has_one :prize, :dependent => :delete, :validate => true
   has_one :bet_status, :dependent => :delete
   
   validates_presence_of :title
@@ -22,10 +22,44 @@ class Bet < ActiveRecord::Base
   end
   
   def get_bettor_ratio
-    BetRatio.find(:first, :conditions => ['user_id = ? AND bet_id = ?', user_id, id]).ratio
+    for ratio in bet_ratios
+      if is_bettor(ratio)
+        return ratio
+      end
+    end
+    BetRatio.new
   end
   
   def get_challenger_ratio
-    BetRatio.find(:first, :conditions => ['user_id != ? AND bet_id = ?', user_id, id]).ratio
+    for ratio in bet_ratios
+      if !is_bettor(ratio)
+        return ratio
+      end
+    end
+    BetRatio.new
+  end
+  
+  def get_bettor_condition
+    for condition in bet_conditions
+      if is_bettor(condition)
+        return condition
+      end
+    end
+    BetCondition.new    
+  end
+  
+  def get_challenger_condition
+    for condition in bet_conditions
+      if !is_bettor(condition)
+        return condition
+      end
+    end
+    BetCondition.new    
+  end
+  
+  private 
+  
+  def is_bettor(bet_object)
+    (bet_object.user_id.equal? user_id) && (bet_object.bet_id.equal? id)    
   end
 end

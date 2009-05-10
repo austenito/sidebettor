@@ -3,46 +3,52 @@
   <div class="grid_16"><h1>Create a bet</h1></div>
      
   <div>
-  <% form_for @bet, @prize, :url => bet_path, :html => { :method => :post } do |bet_form| %>
+  <% form_for @bet, :url => bet_path, :html => { :method => :post } do |bet_form| %>
     <div class="grid_16">
       <%= bet_form.label :title %>
       <%= bet_form.text_field :title %>
     </div>
-    <div class="grid_16">
-      <%= bet_form.label :prize %>
-      <%= bet_form.text_field :prize %>
-    </div>
 
-    <div class="grid_16"><h3>Your Terms</h3></div>
-    <% bet_form.fields_for :user_bet_conditions do |bet_condition| %>
-      <div class="grid_16">      
-        <%= bet_condition.label :odds %>
-        <%= bet_condition.text_field :ratio, :size => 5, :value => 1 %><br />
-      </div>    
+    <% bet_form.fields_for :prize, @prize do |prize| %>
       <div class="grid_16">
-        <%= bet_condition.label :condition %><br />
-        <%= bet_condition.text_area :condition, :size => '100x5' %><br />
+        <%= prize.label :prize %>
+        <%= prize.text_field :name %>
+      </div>
+    <% end %>      
+     
+    <div class="grid_16"><h3>Your Terms</h3></div>     
+    <% bet_form.fields_for :user_ratio, @user_ratio do |user_ratio| %>
+      <div class="grid_16">      
+        <%= user_ratio.label :odds %>
+        <%= user_ratio.text_field :ratio, :size => 5 %><br />
+      </div>
+    <% end %>
+    
+    <% bet_form.fields_for :user_condition, @user_condition do |user_condition| %>
+      <div class="grid_16">
+        <%= user_condition.label :condition %><br />
+        <%= user_condition.text_area :condition, :size => '100x5' %><br />
       </div>
     <% end %>  
 
     <!-- <%= bet_form.label :end_date %><br />
     <%= bet_form.text_field :end_date %><br /> -->
-
-    <div class="grid_16"><h3>Challenger's Terms</h3></div>
-    <% bet_form.fields_for :challenger_bet_conditions do |bet_condition| %>
-      <div class="grid_16">    
-        Challenger<%= bet_condition.collection_select :user_id, @users, :id, :login %></p>
-      </div>
-      <div class="grid_16">
-        <%= bet_condition.label :odds %>
-        <%= bet_condition.text_field :ratio, :size => 5, :value => 1 %><br />
-      </div>
-     <div class="grid_16">
-        <%= bet_condition.label :condition %><br />
-        <%= bet_condition.text_area :condition, :size => '100x5' %><br />    
+    
+    <div class="grid_16"><h3>Challenger's Terms</h3></div>     
+    <p>Challenger:<%= bet_form.collection_select :user_id, @users, :id, :login %></p>    
+    <% bet_form.fields_for :challenger_ratio, @challenger_ratio do |challenger_ratio| %>
+      <div class="grid_16">      
+        <%= challenger_ratio.label :odds %>
+        <%= challenger_ratio.text_field :ratio, :size => 5%><br />
       </div>
     <% end %>
-  
+
+    <% bet_form.fields_for :challenger_condition, @challenger_condition do |challenger_condition| %>
+      <div class="grid_16">
+        <%= challenger_condition.label :condition %><br />
+        <%= challenger_condition.text_area :condition, :size => '100x5' %><br />
+      </div>
+    <% end %>
     
     <div class="grid_16"><%= bet_form.submit "Create Bet" %></div>
   <% end %>
