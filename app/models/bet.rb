@@ -4,6 +4,7 @@ class Bet < ActiveRecord::Base
   has_many :bet_ratios, :dependent => :delete_all
   has_one :prize, :dependent => :delete, :validate => true
   has_one :bet_status, :dependent => :delete
+  belongs_to :user
   
   validates_presence_of :title
   

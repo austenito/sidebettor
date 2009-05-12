@@ -3,7 +3,7 @@
   <div class="grid_16"><h1>Create a bet</h1></div>
      
   <div>
-  <% form_for @bet, :url => bet_path, :html => { :method => :post } do |bet_form| %>
+  <% form_for @bet do |bet_form| %>
     <div class="grid_16">
       <%= bet_form.label :title %>
       <%= bet_form.text_field :title %>

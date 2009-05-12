@@ -5,7 +5,7 @@
     <%= render :partial => 'bet_header' %>
     <% for user_bet in @user_bets %>
       <% if !user_bet.is_pending %>    
-      <div class="grid_5"><%= user_bet.title %></div>
+      <div class="grid_5"><%= link_to user_bet.title, bet_path(user_bet) %></div>
       <div class="grid_3"><%= user_bet.get_challenger.login %></div>
       <div class="grid_1">
         <%= user_bet.get_bettor_ratio.ratio %>:<%= user_bet.get_challenger_ratio.ratio %>
@@ -23,7 +23,7 @@
     <%= render :partial => 'bet_header' %>  
     <% for pending_bet in @pending_bets %>
       <% if pending_bet.is_pending %>    
-        <div class="grid_5"><%= pending_bet.title %></div>
+      <div class="grid_5"><%= link_to pending_bet.title, bet_path(pending_bet) %></div>
         <div class="grid_3"><%= pending_bet.get_challenger.login %></div>
         <div class="grid_1">
           <%= pending_bet.get_bettor_ratio.ratio %>:<%= pending_bet.get_challenger_ratio.ratio %>
@@ -43,7 +43,7 @@
     <div id="bet_container" class="container_16">
       <% for requested_bet in @requested_bets %>
 
-          <div class="grid_5"><%= requested_bet.title %></div>
+          <div class="grid_5"><%= link_to requested_bet.title, bet_path(requested_bet) %></div>
           <div class="grid_5"><%= requested_bet.prize.name %></div>
           <div class="grid_4">
             <%= link_to "Accept", {:controller => "bet_requests", :action => "update", :has_accepted => true, :bet_id => requested_bet.id} , :method => :put %>

@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.register '/login', :controller => 'user_sessions', :action => 'new'  
 
   map.resource :user_session
-  map.resource :bet
+  map.resources :bets
   map.resource :dashboard
   map.resource :bet_request
   map.resource :bet_status

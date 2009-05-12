@@ -1,1 +1,15 @@
-Show me the bets!
+<div class="container_16">  
+  <div class="grid_2">Title:</div>
+  <div class="grid_14"><%= @bet.title %></div>      
+  <div class="grid_2">Prize:</div>  
+  <div class="grid_14"><%= @bet.prize.name %></div>    
+  <div class="grid_2">Creator:</div>  
+  <div class="grid_14"><%= @bet.user.login %></div>  
+  <div class="grid_2">Challenger:</div>  
+  <div class="grid_14"><%= @bet.get_challenger.login %></div>  
+  <div class="grid_2">Odds:</div>  
+  <div class="grid_14"><%= @bet.get_bettor_ratio.ratio %>:<%= @bet.get_challenger_ratio.ratio %></div>
+  <div class="grid_2">Conditions:</div>  
+  <div class="grid_14"><%= @bet.get_bettor_condition.condition %></div>
+  <div class="grid_14 prefix_2"><%= @bet.get_challenger_condition.condition %></div>
+</div>

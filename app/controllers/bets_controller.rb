@@ -27,16 +27,16 @@ class BetsController < ApplicationController
     
       if @bet.save
         redirect_to dashboard_path
-      else
-        @bet.delete
-        @users = User.find(:all, :conditions => ['id != ?', current_user.id])
-        render :template => 'bets/new.html.erb'      
       end
-    end
+    else
+      @bet.delete
+      @users = User.find(:all, :conditions => ['id != ?', current_user.id])
+      render :template => 'bets/new.html.erb'
+    end    
   end
   
   def show
-    
+    @bet = Bet.find(params[:id])
   end
  
   def edit
