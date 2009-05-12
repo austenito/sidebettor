@@ -30,7 +30,7 @@
         </div>        
         <div class="grid_5"><%= pending_bet.prize.name %></div>    
         <div class="grid_2">
-          <%= link_to "Cancel" %>         
+          <%= link_to "Cancel", bet_path(pending_bet), :method => :delete %>         
         </div>
       <% end %>
     <% end%>    
