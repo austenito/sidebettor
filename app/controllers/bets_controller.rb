@@ -14,16 +14,16 @@ class BetsController < ApplicationController
     @bet = Bet.new(:title => bet_array[:title], :end_date => Date.today, :user_id => current_user.id)        
     if @bet.save
       @prize = @bet.build_prize(bet_array[:prize]) 
-      @bet.create_bet_status(:is_completed => false)    
+      @bet.create_bet_status(:is_completed => false, :is_pending => true)    
     
       @user_ratio = @bet.bet_ratios.build(:user_id => current_user.id, :ratio => bet_array[:user_ratio][:ratio])
       @user_condition = @bet.bet_conditions.build(:user_id => current_user.id, :condition => bet_array[:user_condition][:condition])
-      @bet.bet_requests.build(:user_id => current_user.id, :is_pending => false, :has_accepted => false)
+      @bet.bet_requests.build(:user_id => current_user.id, :has_accepted => true)
     
       challenger = User.find(:first, :conditions => ['id = ?', bet_array[:user_id]])
       @challenger_ratio = @bet.bet_ratios.build(:user_id => challenger.id, :ratio => bet_array[:challenger_ratio][:ratio])
       @challenger_condition = @bet.bet_conditions.build(:user_id => challenger.id, :condition => bet_array[:challenger_condition][:condition])
-      @bet.bet_requests.build(:user_id => challenger.id, :is_pending => true, :has_accepted => false)          
+      @bet.bet_requests.build(:user_id => challenger.id, :has_accepted => false)          
     
       if @bet.save
         redirect_to dashboard_path

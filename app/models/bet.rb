@@ -8,15 +8,6 @@ class Bet < ActiveRecord::Base
   
   validates_presence_of :title
   
-  def is_pending
-    for bet_request in bet_requests
-      if bet_request.is_pending
-        return true
-      end
-    end
-    false
-  end
-  
   def get_challenger
     request = BetRequest.find(:first, :conditions => ['user_id != ?', user_id])
     User.find(:first, :conditions => ['id = ?', request.user_id])

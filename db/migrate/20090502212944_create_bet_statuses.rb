@@ -2,7 +2,9 @@ class CreateBetStatuses < ActiveRecord::Migration
   def self.up
     create_table :bet_statuses do |t|
       t.boolean :is_completed, :null => false
+      t.boolean :is_pending, :null => false
       t.integer :bet_id, :null => false
+      t.integer :winner_id
       t.timestamps
     end
   end

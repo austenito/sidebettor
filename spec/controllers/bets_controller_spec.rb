@@ -21,7 +21,7 @@ describe BetsController do
     Bet.should_receive(:new).and_return(bet_mock)
     bet_mock.should_receive(:save).twice.and_return(true)    
     bet_mock.should_receive(:build_prize).once
-    bet_mock.should_receive(:create_bet_status).with({:is_completed => false})
+    bet_mock.should_receive(:create_bet_status).with({:is_completed => false, :is_pending => true})
     
     bet_ratio_mock = mock(BetRatio)
     bet_mock.should_receive(:bet_ratios).twice.and_return(bet_ratio_mock)
@@ -35,8 +35,8 @@ describe BetsController do
 
     bet_request_mock = mock(BetRequest)  
     bet_mock.should_receive(:bet_requests).twice.and_return(bet_request_mock)
-    bet_request_mock.should_receive(:build).once.with({:is_pending => false, :has_accepted => false, :user_id => 1} )
-    bet_request_mock.should_receive(:build).once.with({:is_pending => true, :has_accepted => false, :user_id => 1} )    
+    bet_request_mock.should_receive(:build).once.with({:has_accepted => true, :user_id => 1} )
+    bet_request_mock.should_receive(:build).once.with({:has_accepted => false, :user_id => 1} )    
     
     get 'create', :bet => @bet_attributes
     response.should redirect_to(dashboard_path)
@@ -45,7 +45,26 @@ describe BetsController do
   it "Should not redirect to dashboard when a new bet fails to be created" do
     bet_mock = mock(Bet)
     Bet.should_receive(:new).and_return(bet_mock)
+    bet_mock.should_receive(:delete).once
     bet_mock.should_receive(:save).once.and_return(false)    
     get 'create', :bet => @bet_attributes
+  end
+  
+  it "Should delete an existing bet" do
+    bet_mock = mock(Bet)
+    Bet.should_receive(:find).and_return(bet_mock)
+    bet_mock.should_receive(:destroy).and_return(true)
+    
+    get 'destroy'
+    response.should redirect_to(dashboard_path)    
+  end
+  
+  it "Should not delete if a bet doesn't exist" do
+    bet_mock = mock(Bet)
+    Bet.should_receive(:find).and_return(bet_mock)
+    bet_mock.should_receive(:destroy).and_return(false)
+    
+    get 'destroy'
+    response.should redirect_to(dashboard_path)    
   end
 end

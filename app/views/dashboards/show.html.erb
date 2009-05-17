@@ -4,7 +4,6 @@
   <div id="bet_container">
     <%= render :partial => 'bet_header' %>
     <% for user_bet in @user_bets %>
-      <% if !user_bet.is_pending %>    
       <div class="grid_5"><%= link_to user_bet.title, bet_path(user_bet) %></div>
       <div class="grid_3"><%= user_bet.get_challenger.login %></div>
       <div class="grid_1">
@@ -12,9 +11,8 @@
       </div>      
       <div class="grid_5"><%= user_bet.prize.name %></div>    
       <div class="grid_2">
-          <%= link_to "Complete" %>         
+          <%= link_to "Complete", bet_status_path(user_bet.bet_status) %>         
         </div>
-      <% end %>
     <% end%>
   </div>
 
@@ -22,7 +20,6 @@
   <div id="bet_container">  
     <%= render :partial => 'bet_header' %>  
     <% for pending_bet in @pending_bets %>
-      <% if pending_bet.is_pending %>    
       <div class="grid_5"><%= link_to pending_bet.title, bet_path(pending_bet) %></div>
         <div class="grid_3"><%= pending_bet.get_challenger.login %></div>
         <div class="grid_1">
@@ -32,7 +29,6 @@
         <div class="grid_2">
           <%= link_to "Cancel", bet_path(pending_bet), :method => :delete %>         
         </div>
-      <% end %>
     <% end%>    
   </div>  
   

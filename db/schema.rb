@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(:version => 20090502212944) do
   end
 
   create_table "bet_requests", :force => true do |t|
-    t.boolean  "is_pending",   :null => false
     t.boolean  "has_accepted", :null => false
     t.integer  "bet_id",       :null => false
     t.integer  "user_id",      :null => false
@@ -38,7 +37,9 @@ ActiveRecord::Schema.define(:version => 20090502212944) do
 
   create_table "bet_statuses", :force => true do |t|
     t.boolean  "is_completed", :null => false
+    t.boolean  "is_pending",   :null => false
     t.integer  "bet_id",       :null => false
+    t.integer  "winner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -11,9 +11,11 @@ describe BetRequestsController do
   it "should request be accepted" do
     bet_request_mock = mock(BetRequest)
     BetRequest.should_receive(:find).and_return(bet_request_mock)
-    bet_request_mock.should_receive(:has_accepted=).with(true)
-    bet_request_mock.should_receive(:is_pending=).with(false)
-    bet_request_mock.should_receive(:save).once.and_return(true)
+    bet_request_mock.should_receive(:update_attribute).once.with(:has_accepted, true)
+    
+    bet_status_mock = mock(BetStatus)
+    BetStatus.should_receive(:find).and_return(bet_status_mock)
+    bet_status_mock.should_receive(:update_attribute).once.with(:is_pending, false)
     
     get 'update', :has_accepted => true
     response.should redirect_to(dashboard_path)
@@ -22,9 +24,11 @@ describe BetRequestsController do
   it "should request be denied" do
     bet_request_mock = mock(BetRequest)
     BetRequest.should_receive(:find).and_return(bet_request_mock)
-    bet_request_mock.should_receive(:has_accepted=).with(false)
-    bet_request_mock.should_receive(:is_pending=).with(false)
-    bet_request_mock.should_receive(:save).once.and_return(true)
+    bet_request_mock.should_receive(:update_attribute).once.with(:has_accepted, false)    
+    
+    bet_status_mock = mock(BetStatus)
+    BetStatus.should_receive(:find).and_return(bet_status_mock)
+    bet_status_mock.should_receive(:update_attribute).once.with(:is_pending, false)    
     
     get 'update', :has_accepted => false
     response.should redirect_to(dashboard_path)

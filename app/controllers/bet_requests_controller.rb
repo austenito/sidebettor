@@ -13,9 +13,10 @@ class BetRequestsController < ApplicationController
   
   def update
     request = BetRequest.find(:first, :conditions => ['bet_id = ? AND user_id = ?', params[:bet_id], current_user.id])
-    request.has_accepted = params[:has_accepted]
-    request.is_pending = false
-    request.save
+    request.update_attribute(:has_accepted, params[:has_accepted])
+    
+    status = BetStatus.find(:first, :conditions => ['bet_id = ?', params[:bet_id]])
+    status.update_attribute(:is_pending, false)
     redirect_to dashboard_path
   end
 end
