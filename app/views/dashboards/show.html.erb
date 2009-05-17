@@ -38,12 +38,11 @@
   
     <div id="bet_container" class="container_16">
       <% for requested_bet in @requested_bets %>
-
           <div class="grid_5"><%= link_to requested_bet.title, bet_path(requested_bet) %></div>
           <div class="grid_5"><%= requested_bet.prize.name %></div>
           <div class="grid_4">
             <%= link_to "Accept", {:controller => "bet_requests", :action => "update", :has_accepted => true, :bet_id => requested_bet.id} , :method => :put %>
-            <%= link_to "Deny", :controller => "BetRequests", :action => "update", :has_accepted => false, :bet_id => requested_bet.id %>
+            <%= link_to "Deny", {:controller => "bet_requests", :action => "update", :bet_id => requested_bet.id} , :method => :put %>        
           </div>
       <% end %>
     </div>

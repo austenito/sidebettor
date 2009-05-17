@@ -12,8 +12,15 @@ class BetRequestsController < ApplicationController
   end
   
   def update
-    request = BetRequest.find(:first, :conditions => ['bet_id = ? AND user_id = ?', params[:bet_id], current_user.id])
-    request.update_attribute(:has_accepted, params[:has_accepted])
+    has_accepted = params[:has_accepted]
+    if has_accepted.nil?
+      has_accepted = false
+    end
+    
+    requests = BetRequest.find(:all, :conditions => ['bet_id = ?', params[:bet_id]])
+    for request in requests
+      request.update_attribute(:has_accepted, has_accepted)
+    end
     
     status = BetStatus.find(:first, :conditions => ['bet_id = ?', params[:bet_id]])
     status.update_attribute(:is_pending, false)
