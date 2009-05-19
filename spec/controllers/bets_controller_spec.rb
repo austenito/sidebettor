@@ -45,7 +45,6 @@ describe BetsController do
   it "Should not redirect to dashboard when a new bet fails to be created" do
     bet_mock = mock(Bet)
     Bet.should_receive(:new).and_return(bet_mock)
-    bet_mock.should_receive(:delete).once
     bet_mock.should_receive(:save).once.and_return(false)    
     get 'create', :bet => @bet_attributes
   end
