@@ -1,8 +1,12 @@
+Rails Version 2.3.2
+Ruby Version 1.9.1
+
 == Required Gems
 
 authlogic
 factory-girl
 rspec
+sqlite3
 
 == Development Setup
 
@@ -13,6 +17,8 @@ sudo gem install rspec
 sudo gem install rspec-rails
 gem source -a http://gems.github.com
 sudo gem install thoughtbot-factory_girl
+sudo gem install sqlite3-ruby
+
 
 rake db:migrate
 rake db:migrate RAILS_ENV=test

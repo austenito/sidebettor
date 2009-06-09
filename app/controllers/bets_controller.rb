@@ -40,6 +40,7 @@ class BetsController < ApplicationController
       set_session_fields(bet, prize, user_ratio, user_condition, challenger_ratio, challenger_condition)
       if bet.save
         session[:bet] = nil
+        # BetNotifier.deliver_request_notification
         redirect_to dashboard_path
       else
         bet.delete

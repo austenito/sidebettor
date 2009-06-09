@@ -20,7 +20,7 @@
     <% bet_form.fields_for :user_ratio, @user_ratio do |user_ratio| %>
       <div class="grid_16">      
         <%= user_ratio.label :odds %>
-        <%= user_ratio.text_field :ratio, :size => 5 %><br />
+        <%= user_ratio.text_field :ratio, :size => 5 %>
       </div>
     <% end %>
     
@@ -34,12 +34,14 @@
     <!-- <%= bet_form.label :end_date %><br />
     <%= bet_form.text_field :end_date %><br /> -->
     
-    <div class="grid_16"><h3>Challenger's Terms</h3></div>     
-    <p>Challenger:<%= bet_form.collection_select :user_id, @users, :id, :login %></p>    
+    <div class="grid_16"><h3>Challenger's Terms</h3></div> 
+    <div class="grid_16"><p>Challenger:<%= bet_form.collection_select :user_id, @users, :id, :login %>
+    </div>
+    
     <% bet_form.fields_for :challenger_ratio, @challenger_ratio do |challenger_ratio| %>
       <div class="grid_16">      
         <%= challenger_ratio.label :odds %>
-        <%= challenger_ratio.text_field :ratio, :size => 5%><br />
+        <%= challenger_ratio.text_field :ratio, :size => 5%>
       </div>
     <% end %>
 
