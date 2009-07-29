@@ -7,7 +7,7 @@
        <div class="grid_6" id="header_options">        
        <%= link_to "Dashboard", dashboard_path %>
        <%= link_to "Create Bet", new_bet_path %>        
-       <%= link_to "Settings" %>    
+       <%= link_to "Settings", user_path(current_user) %>
        <%= link_to 'Logout', user_session_path, :method => :delete %>
      <% else %>
        <%= link_to 'Login', user_session_path %>

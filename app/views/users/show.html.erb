@@ -1,7 +1,3 @@
-<%= link_to 'Create Bet', new_bet_path %>
-<%= link_to 'Logout', user_session_path, :method => :delete %>
-<p>
-
 <h1> Information </h1>
 <p>
   <b>Login:</b>
@@ -14,28 +10,8 @@
 </p>
  
 <p>
-  <b>Last request at:</b>
-  <%=h @user.last_request_at %>
-</p>
- 
-<p>
-  <b>Last login at:</b>
-  <%=h @user.last_login_at %>
-</p>
- 
-<p>
-  <b>Current login at:</b>
-  <%=h @user.current_login_at %>
-</p>
- 
-<p>
-  <b>Last login ip:</b>
-  <%=h @user.last_login_ip %>
-</p>
- 
-<p>
-  <b>Current login ip:</b>
-  <%=h @user.current_login_ip %>
+ <b>Email:</b>
+ <%=h @user.email %>
 </p>
  
  
