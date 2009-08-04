@@ -12,4 +12,12 @@
   <div class="grid_2">Conditions:</div>  
   <div class="grid_14"><%= @bet.get_bettor_condition.condition %></div>
   <div class="grid_14 prefix_2"><%= @bet.get_challenger_condition.condition %></div>
+  <div class="grid_4">
+  <% if @bet.user == current_user%>
+    <%= link_to "Cancel", bet_path(@bet), :method => :delete %>         
+  <% else %>
+    <%= link_to "Accept", {:controller => "bet_requests", :action => "update", :has_accepted => true, :bet_id => @bet.id} , :method => :put %>
+    <%= link_to "Deny", {:controller => "bet_requests", :action => "update", :bet_id => @bet.id} , :method => :put %>        
+    <% end %>
+  </div>    
 </div>

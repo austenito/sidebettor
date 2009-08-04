@@ -1,9 +1,9 @@
 class BetNotifier < ActionMailer::Base
   
-  def request_notification
-    recipients "austen.ito@gmail.com"
+  def request_notification(user, challenger, bet)
+    recipients challenger.email
     from       "ito.austen@gmail.com"
-    subject    "New account information"
-    body       "Test Email"
+    subject    "New Bet Request"
+    body       :user => user, :challenger => challenger, :bet => bet
   end
 end
