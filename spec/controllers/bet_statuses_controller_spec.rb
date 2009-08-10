@@ -8,7 +8,8 @@ describe BetStatusesController do
     
     user_mock = mock(User)
     User.should_receive(:find).twice.and_return(user_mock)
-        
+    user_mock.should_receive(:id).twice.and_return(1)                
+    
     bet_mock = mock(Bet)
     Bet.should_receive(:find).once.and_return(bet_mock)
     bet_mock.should_receive(:user).once.and_return(user_mock)

@@ -31,6 +31,7 @@ Rails::Initializer.run do |config|
   config.gem "rspec", :lib => false, :version => ">= 1.2.4" 
   config.gem "rspec-rails", :lib => false, :version => ">= 1.2.4"
   config.gem "thoughtbot-factory_girl", :lib => "factory_girl"
+  config.gem "calendar_date_select"
   
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

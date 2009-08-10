@@ -11,7 +11,6 @@ describe BetRequestsController do
   it "should request be accepted" do
     bet_request_mock = mock(BetRequest)
     BetRequest.should_receive(:find).and_return(bet_request_mock)
-    request_mocks = { bet_request_mock, bet_request_mock }
     bet_request_mock.should_receive(:each).once
     
     bet_status_mock = mock(BetStatus)
