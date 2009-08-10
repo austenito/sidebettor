@@ -9,10 +9,6 @@
       <%= bet_form.text_field :title %>
     </div>
     
-    <div class="grid_16">
-      End Date <%= calendar_date_select_tag "end_date", Date.today %>
-    </div>
-    
     <% bet_form.fields_for :prize, @prize do |prize| %>
       <div class="grid_16">
         <%= prize.label :prize %>

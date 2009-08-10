@@ -23,7 +23,7 @@ class BetsController < ApplicationController
   def create  
     bet_array = params[:bet]    
     bet = Bet.new(:title => bet_array[:title], :end_date => Date.today, :user_id => current_user.id)        
-    
+          
     if bet.save
       prize = bet.build_prize(bet_array[:prize]) 
       bet.create_bet_status(:is_completed => false, :is_pending => true)    
