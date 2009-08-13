@@ -19,14 +19,6 @@ ActiveRecord::Schema.define(:version => 20090811071541) do
     t.datetime "updated_at"
   end
 
-  create_table "bet_ratios", :force => true do |t|
-    t.integer  "ratio",      :null => false
-    t.integer  "bet_id",     :null => false
-    t.integer  "user_id",    :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "bet_requests", :force => true do |t|
     t.boolean  "has_accepted", :null => false
     t.integer  "bet_id",       :null => false

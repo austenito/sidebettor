@@ -22,12 +22,7 @@ describe BetsController do
     bet_mock.should_receive(:save).twice.and_return(true)    
     bet_mock.should_receive(:build_prize).once
     bet_mock.should_receive(:create_bet_status).with({:is_completed => false, :is_pending => true})
-    
-    bet_ratio_mock = mock(BetRatio)
-    bet_mock.should_receive(:bet_ratios).twice.and_return(bet_ratio_mock)
-    bet_ratio_mock.should_receive(:build).once.with({:ratio => 5, :user_id => 1 })
-    bet_ratio_mock.should_receive(:build).once.with({:ratio => 1, :user_id => 1 })    
-        
+            
     bet_condition_mock = mock(BetCondition)  
     bet_mock.should_receive(:bet_conditions).twice.and_return(bet_condition_mock)
     bet_condition_mock.should_receive(:build).once.with({:user_id=> 1 , :condition=> "user_condition" })

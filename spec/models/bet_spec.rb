@@ -38,33 +38,6 @@ describe Bet do
     bet.get_challenger.id.should == challenger.id
   end
   
-  it "should return bettor ratio" do
-    challenger = Factory.create(:admin_user)
-    bet = Bet.create!(@valid_attributes)    
-    bet.bet_ratios.push(BetRatio.create!(:bet_id => bet.id, :user_id => bet.user_id, :ratio => 1))
-    bet.bet_ratios.push(BetRatio.create!(:bet_id => bet.id, :user_id => challenger.id, :ratio => 3))
-    bet.get_bettor_ratio.ratio.should == 1
-  end
-  
-  it "should return new user ratio" do 
-    bet = Bet.create!(@valid_attributes)
-    bet.get_bettor_ratio.ratio.should != nil
-  end
-  
-  it "should return new challenger ratio" do 
-    challenger = Factory.create(:admin_user)
-    bet = Bet.create!(@valid_attributes)
-    bet.get_challenger_ratio.ratio.should != nil
-  end  
-  
-  it "should return challenger ratio" do
-    challenger = Factory.create(:admin_user)
-    bet = Bet.create!(@valid_attributes)    
-    bet.bet_ratios.push(BetRatio.create!(:bet_id => bet.id, :user_id => bet.user_id, :ratio => 1))
-    bet.bet_ratios.push(BetRatio.create!(:bet_id => bet.id, :user_id => challenger.id, :ratio => 3))
-    bet.get_challenger_ratio.ratio.should == 3
-  end
-  
   it "should return user condition" do
     bet = Bet.create!(@valid_attributes)
     bet.get_bettor_condition.condition.should != nil    
