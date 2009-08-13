@@ -7,11 +7,8 @@
   <div class="grid_14"><%= @bet.user.login %></div>  
   <div class="grid_2">Challenger:</div>  
   <div class="grid_14"><%= @bet.get_challenger.login %></div>  
-  <div class="grid_2">Odds:</div>  
-  <div class="grid_14"><%= @bet.get_bettor_ratio.ratio %>:<%= @bet.get_challenger_ratio.ratio %></div>
   <div class="grid_2">Conditions:</div>  
-  <div class="grid_14"><%= @bet.get_bettor_condition.condition %></div>
-  <div class="grid_14 prefix_2"><%= @bet.get_challenger_condition.condition %></div>
+  <div class="grid_14"><%= @bet.bet_conditions[0].condition %></div>
   <div class="grid_4">
   <% if @bet.user == current_user%>
     <%= link_to "Cancel", bet_path(@bet), :method => :delete %>         

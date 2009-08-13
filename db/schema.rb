@@ -13,7 +13,6 @@ ActiveRecord::Schema.define(:version => 20090811071541) do
 
   create_table "bet_conditions", :force => true do |t|
     t.string   "condition",  :null => false
-    t.integer  "user_id",    :null => false
     t.integer  "bet_id",     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -4,8 +4,7 @@ describe BetCondition do
   before(:each) do
     @valid_attributes = {
       :condition => 'Bet Condition',
-      :bet_id => 1,
-      :user_id => 1,
+      :bet_id => 1
     }
   end
 

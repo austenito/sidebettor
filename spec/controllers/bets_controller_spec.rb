@@ -7,11 +7,8 @@ describe BetsController do
   before(:each) do
     UserSession.create Factory.build(:default_user)
     
-    @bet_attributes = {:title => '', :user_id => 1, :challenger_condition =>{ :condition => "challenger_condition"}, 
-                                                                              :prize => {:name => "prize name"}, 
-                                                                              :challenger_ratio => { :ratio => 1 }, 
-                                                                              :user_ratio => { :ratio =>  5 }, 
-                                                                              :user_condition => {:condition => "user_condition"}}
+    @bet_attributes = {:title => '', :user_id => 1, :prize => {:name => "prize name"}, 
+                                                    :bet_condition => {:condition => "bet_condition"}}
   end
       
   # note that user_id parameter returns the same id because the UserSession.create mock 
@@ -24,9 +21,8 @@ describe BetsController do
     bet_mock.should_receive(:create_bet_status).with({:is_completed => false, :is_pending => true})
             
     bet_condition_mock = mock(BetCondition)  
-    bet_mock.should_receive(:bet_conditions).twice.and_return(bet_condition_mock)
-    bet_condition_mock.should_receive(:build).once.with({:user_id=> 1 , :condition=> "user_condition" })
-    bet_condition_mock.should_receive(:build).once.with({:user_id=> 1 , :condition=> "challenger_condition" })    
+    bet_mock.should_receive(:bet_conditions).once.and_return(bet_condition_mock)
+    bet_condition_mock.should_receive(:build).once.with({:condition=> "bet_condition" })
 
     bet_request_mock = mock(BetRequest)  
     bet_mock.should_receive(:bet_requests).twice.and_return(bet_request_mock)
