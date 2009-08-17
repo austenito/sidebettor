@@ -10,7 +10,9 @@ describe Bet do
     @valid_attributes = {
       :title => "Bet Title",
       :end_date => Date.today,
-      :user_id => 1
+      :user_id => 1,
+      :is_closed => true,
+      :is_active => true
     }
     
     @pending_request_attributes = {
@@ -47,6 +49,16 @@ describe Bet do
     challenger = Factory.create(:admin_user)    
     bet = Bet.create!(@valid_attributes)
     bet.get_challenger_condition.condition.should != nil    
+  end
+  
+  it "should return closed" do
+    bet = Bet.create!(@valid_attributes)
+    bet.is_closed.should == true
+  end
+  
+  it "should return active" do
+    bet = Bet.create!(@valid_attributes)
+    bet.is_active.should == true
   end
   
 end

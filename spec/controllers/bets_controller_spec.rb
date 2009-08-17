@@ -18,7 +18,7 @@ describe BetsController do
     Bet.should_receive(:new).and_return(bet_mock)
     bet_mock.should_receive(:save).twice.and_return(true)    
     bet_mock.should_receive(:build_prize).once
-    bet_mock.should_receive(:create_bet_status).with({:is_completed => false, :is_pending => true})
+    # bet_mock.should_receive(:create_bet_status).with({:is_completed => false, :is_pending => true})
             
     bet_condition_mock = mock(BetCondition)  
     bet_mock.should_receive(:bet_conditions).once.and_return(bet_condition_mock)

@@ -26,19 +26,13 @@ ActiveRecord::Schema.define(:version => 20090811071541) do
     t.datetime "updated_at"
   end
 
-  create_table "bet_statuses", :force => true do |t|
-    t.boolean  "is_completed", :null => false
-    t.boolean  "is_pending",   :null => false
-    t.integer  "bet_id",       :null => false
-    t.integer  "winner_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "bets", :force => true do |t|
-    t.string   "title",      :null => false
-    t.date     "end_date",   :null => false
-    t.integer  "user_id",    :null => false
+    t.string   "title",                         :null => false
+    t.date     "end_date",                      :null => false
+    t.integer  "user_id",                       :null => false
+    t.integer  "winner_id"
+    t.boolean  "is_active",  :default => false, :null => false
+    t.boolean  "is_closed",  :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

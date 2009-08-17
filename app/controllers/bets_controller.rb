@@ -21,7 +21,7 @@ class BetsController < ApplicationController
           
     if bet.save
       prize = bet.build_prize(bet_array[:prize]) 
-      bet.create_bet_status(:is_completed => false, :is_pending => true)    
+      # bet.create_bet_status(:is_completed => false, :is_pending => true)    
 
       bet_condition = bet.bet_conditions.build(:condition => bet_array[:bet_condition][:condition])
       bet.bet_requests.build(:user_id => current_user.id, :has_accepted => true)

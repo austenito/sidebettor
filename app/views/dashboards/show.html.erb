@@ -7,9 +7,6 @@
       <div class="grid_5"><%= link_to user_bet.title, bet_path(user_bet) %></div>
       <div class="grid_3"><%= user_bet.get_challenger.login %></div>
       <div class="grid_5"><%= user_bet.prize.name %></div>    
-      <div class="grid_2">
-          <%= link_to "Complete", bet_status_path(user_bet.bet_status) %>         
-        </div>
     <% end%>
   </div>
 

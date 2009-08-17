@@ -22,8 +22,16 @@ class BetRequestsController < ApplicationController
       request.update_attribute(:has_accepted, has_accepted)
     end
     
-    status = BetStatus.find(:first, :conditions => ['bet_id = ?', params[:bet_id]])
-    status.update_attribute(:is_pending, false)
+    bet = Bet.find(params[:bet_id])    
+    if has_accepted
+      bet.is_active = true
+      bet.is_closed = false
+    else
+      bet.is_active = false
+      bet.is_closed = true
+    end    
+    bet.save
+    
     redirect_to dashboard_path
   end
 end

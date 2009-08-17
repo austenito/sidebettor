@@ -41,18 +41,18 @@ namespace :bootstrap do
         :password_confirmation => 'admin',
         :password => 'admin')      
         
-       bet = Bet.create(:title => "Admin times out in 5 seconds", :end_date => Date.today, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)
+       bet = Bet.create(:title => "Admin times out in 5 seconds", :end_date => Date.today, :user_id => default.id, 
+                        :created_at => Date.today, :updated_at => Date.today)
        BetRequest.create(:has_accepted => true, :bet_id => bet.id, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)
        BetRequest.create(:has_accepted => false, :bet_id => bet.id, :user_id => admin.id, :created_at => Date.today, :updated_at => Date.today)
        Prize.create(:bet_id => bet.id, :name => "Default Prize")
-       BetStatus.create(:bet_id => bet.id, :is_pending => true, :is_completed => false)
        BetCondition.create(:bet_id => bet.id, :condition => "First bet condition")
        
-       bet = Bet.create(:title => "Default does nothing", :end_date => Date.today, :user_id => admin.id, :created_at => Date.today, :updated_at => Date.today)
+       bet = Bet.create(:title => "Default does nothing", :end_date => Date.today, :user_id => admin.id, 
+                        :created_at => Date.today, :updated_at => Date.today)
        BetRequest.create(:has_accepted => true, :bet_id => bet.id, :user_id => admin.id, :created_at => Date.today, :updated_at => Date.today)
        BetRequest.create(:has_accepted => false, :bet_id => bet.id, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)                
        Prize.create(:bet_id => bet.id, :name => "Admin Prize")
-       BetStatus.create(:bet_id => bet.id, :is_pending => true, :is_completed => false)       
        BetCondition.create(:bet_id => bet.id, :condition => "Second bet condition")
    end
    
