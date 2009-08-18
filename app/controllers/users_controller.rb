@@ -18,7 +18,6 @@ class UsersController < ApplicationController
   
   def show
     @user = @current_user
-    bet_conditions = BetCondition.find(:all, :conditions => [ "user_id = ?", @user.id])
   end
  
   def edit

@@ -52,6 +52,12 @@ class BetsController < ApplicationController
   end
   
   def update
+    bet = Bet.find(params[:id])
+    if !bet.nil?
+      bet.is_active = false
+      bet.is_closed = true
+    end
+    redirect_to dashboard_path
   end
   
   def destroy

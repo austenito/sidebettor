@@ -31,6 +31,15 @@ class Bet < ActiveRecord::Base
     BetCondition.new    
   end
   
+  def is_participant(user_id)
+    requests = BetRequest.find(:all, :conditions => ['bet_id = ? AND user_id = ?', self.id, user_id])
+    if requests.empty?
+      false
+    else
+      true
+    end
+  end
+  
   private 
   
   def is_bettor(bet_object)

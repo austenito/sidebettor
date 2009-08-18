@@ -57,4 +57,14 @@ describe BetsController do
     get 'destroy'
     response.should redirect_to(dashboard_path)    
   end
+  
+  it "Should close a bet" do 
+    bet_mock = mock(Bet)
+    Bet.should_receive(:find).and_return(bet_mock)
+    bet_mock.should_receive(:is_active=).once.with(false)
+    bet_mock.should_receive(:is_closed=).once.with(true)    
+    
+    get 'update'
+    response.should redirect_to(dashboard_path)
+  end
 end

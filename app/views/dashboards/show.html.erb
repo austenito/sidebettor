@@ -17,9 +17,6 @@
       <div class="grid_5"><%= link_to pending_bet.title, bet_path(pending_bet) %></div>
         <div class="grid_3"><%= pending_bet.get_challenger.login %></div> 
         <div class="grid_5"><%= pending_bet.prize.name %></div>    
-        <div class="grid_2">
-          <%= link_to "Cancel", bet_path(pending_bet), :method => :delete %>         
-        </div>
     <% end%>    
   </div>  
   

@@ -6,6 +6,7 @@ describe Bet do
     
   before(:each) do
     @session = UserSession.create Factory.build(:default_user)
+    @challenger = Factory.create(:admin_user)
     
     @valid_attributes = {
       :title => "Bet Title",
@@ -33,11 +34,10 @@ describe Bet do
   end
    
   it "should return challenger" do
-    challenger = Factory.create(:admin_user)
     bet = Bet.create!(@valid_attributes)    
     bet.bet_requests.push(BetRequest.create!(@pending_request_attributes))
-    bet.bet_requests.push(BetRequest.create!(:has_accepted => false, :bet_id => 1, :user_id => challenger.id))
-    bet.get_challenger.id.should == challenger.id
+    bet.bet_requests.push(BetRequest.create!(:has_accepted => false, :bet_id => 1, :user_id => @challenger.id))
+    bet.get_challenger.id.should == @challenger.id
   end
   
   it "should return user condition" do
@@ -45,8 +45,7 @@ describe Bet do
     bet.get_bettor_condition.condition.should != nil    
   end
   
-  it "should return challenger condition" do
-    challenger = Factory.create(:admin_user)    
+  it "should return challenger condition" do  
     bet = Bet.create!(@valid_attributes)
     bet.get_challenger_condition.condition.should != nil    
   end
@@ -61,4 +60,16 @@ describe Bet do
     bet.is_active.should == true
   end
   
+  it "should return user is a participant" do
+    bet = Bet.create!(@valid_attributes)    
+    bet.bet_requests.push(BetRequest.create!(:has_accepted => true, :bet_id => bet.id, :user_id => @challenger.id))
+    bet.is_participant(@challenger.id).should == true
+  end
+  
+  it "should not return user is a participant" do
+    bet = Bet.create!(@valid_attributes)    
+    bet.bet_requests.push(BetRequest.create!(:has_accepted => true, :bet_id => bet.id, :user_id => 12))    
+    bet.bet_requests.push(BetRequest.create!(:has_accepted => true, :bet_id => bet.id, :user_id => 14))    
+    bet.is_participant(@challenger.id).should == false
+  end
 end
