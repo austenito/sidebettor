@@ -8,7 +8,7 @@ describe BetsController do
     UserSession.create Factory.build(:default_user)
     
     @bet_attributes = {:title => '', :user_id => 1, :prize => {:name => "prize name"}, 
-                                                    :bet_condition => {:condition => "bet_condition"}}
+                                                    :bet_condition => "bet_condition"}
   end
       
   # note that user_id parameter returns the same id because the UserSession.create mock 

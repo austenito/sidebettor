@@ -2,6 +2,11 @@ class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update]
   
+  def index
+   @users = User.find(:all, :conditions => ['login LIKE ?', "%#{params[:search]}%"])
+   render :partial => "users"
+  end
+  
   def new
     @user = User.new
   end

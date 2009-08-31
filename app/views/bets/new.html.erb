@@ -3,28 +3,31 @@
   <div class="grid_16"><h1>Create a bet</h1></div>
 
   <div>
-  <% form_for @bet, :url => {:action => 'create'}, :html => {:method => :post} do |bet_form| %>
+  <% form_for @bet, do |bet_form| %>  
     <div class="grid_16">
       <%= bet_form.label :title %>
       <%= bet_form.text_field :title %>
     </div>
     
-    <% bet_form.fields_for :prize, @prize do |prize| %>
-      <div class="grid_16">
-        <%= prize.label :prize %>
-        <%= prize.text_field :name %>
-      </div>
-    <% end %>      
-     
-    <div class="grid_16"><p>Challenger:<%= bet_form.collection_select :user_id, @users, :id, :login %>
+  <div class="grid_16">
+    <%= bet_form.label :prize %>
+    <%= bet_form.text_field :prize_name %>
+  </div>
+  
+  <div class="grid_16">
+    <%= bet_form.label 'Bet Condition' %>
+    <br>
+    <%= bet_form.text_area :bet_condition, :size => '100x5' %>
+  </div>  
+  
+    <div class="grid_16">
+    <%= bet_form.label :challenger %>      
+    <%= text_field_with_auto_complete :bet, :challenger_login, { :size => 15 }, 
+                                      { :url => users_path, 
+                                        :method => :get, :param_name => 'search' } %>
     </div>
-            
-    <% bet_form.fields_for :bet_condition, @bet_condition do |bet_condition| %>
-      <div class="grid_16">
-        <%= bet_condition.label :condition %><br />
-        <%= bet_condition.text_area :condition, :size => '100x5' %><br />
-      </div>
-    <% end %>  
+  
     <div class="grid_16"><%= bet_form.submit "Create Bet" %></div>
   <% end %>
+  
 </div>

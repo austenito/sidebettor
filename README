@@ -20,6 +20,7 @@ sudo gem install thoughtbot-factory_girl
 sudo gem install sqlite3-ruby
 sudo gem install calendar_date_select
 sudo gem install -v=1.2.3 test-unit
+script/plugin install git://github.com/rails/auto_complete.git
 
 rake db:migrate
 rake db:migrate RAILS_ENV=test

@@ -8,7 +8,8 @@ class BetsController < ApplicationController
      @bet_condition = BetCondition.new
    else
      @bet = session[:bet]
-     @prize = session[:prize]
+     @prize_name = session[:prize_name]
+     @challenger = session[:challenger]
      # @user_condition = session[:user_condition]
      # @challenger_condition = session[:challenger_condition]
    end
@@ -18,27 +19,28 @@ class BetsController < ApplicationController
   def create  
     bet_array = params[:bet]    
     bet = Bet.new(:title => bet_array[:title], :end_date => Date.today, :user_id => current_user.id)        
-          
-    if bet.save
-      prize = bet.build_prize(bet_array[:prize]) 
-      # bet.create_bet_status(:is_completed => false, :is_pending => true)    
+    bet.build_prize(:name => bet_array[:prize_name])
 
-      bet_condition = bet.bet_conditions.build(:condition => bet_array[:bet_condition][:condition])
-      bet.bet_requests.build(:user_id => current_user.id, :has_accepted => true)
-    
-      challenger = User.find(:first, :conditions => ['id = ?', bet_array[:user_id]])
-      bet.bet_requests.build(:user_id => challenger.id, :has_accepted => false)          
-    
-      # set_session_fields(bet, prize, user_ratio, user_condition, challenger_ratio, challenger_condition)
-      if bet.save
-        session[:bet] = nil
-        # BetNotifier.deliver_request_notification(current_user, challenger, bet)
-        redirect_to dashboard_path
-      else
-        bet.delete
-        redirect_to :action => 'new'
-      end
+    bet_condition = BetCondition.new(:condition => bet_array[:bet_condition])
+    bet.bet_conditions.push(bet_condition)
+
+    user_request = BetRequest.new(:user_id => current_user.id, :has_accepted => true)
+    bet.bet_requests.push(user_request)
+
+    challenger = User.find(:first, :conditions => ['login = ?', bet_array[:challenger_login]])    
+      
+    challenger_request = BetRequest.new(:user_id => challenger, :has_accepted => false)
+    bet.bet_requests.push(challenger_request)
+
+    if bet.save
+      session[:bet] = nil
+      # BetNotifier.deliver_request_notification(current_user, challenger, bet)
+      redirect_to dashboard_path
     else
+      # bet.delete
+      session[:bet] = bet
+      session[:prize_name] = bet.prize_name
+      
       redirect_to :action => 'new'
     end
   end
@@ -66,14 +68,5 @@ class BetsController < ApplicationController
       bet.destroy
     end
     redirect_to dashboard_path
-  end
-  
-  private 
-  
-  def set_session_fields(bet, prize, user_ratio, user_condition, challenger_ratio, challenger_condition)
-    session[:bet] = bet
-    session[:prize] = prize
-    # session[:user_condition] = user_condition
-    # session[:challenger_condition] = challenger_condition 
-  end
+  end  
 end

@@ -6,7 +6,24 @@ class Bet < ActiveRecord::Base
   belongs_to :user
   has_and_belongs_to_many :users  
   
-  validates_presence_of :title
+  validates_presence_of :title, :message => 'is required'
+  validate :has_condition, :has_prize, :has_challenger
+
+  def challenger_login
+    user.login if user
+  end
+
+  def challenger_login=(login)
+    self.user = User.find_by_login(login) unless login.blank?
+  end
+  
+  def prize_name
+    prize.name if prize
+  end
+  
+  def bet_condition
+    bet_conditions[0].condition if bet_conditions.length > 0
+  end
   
   def get_challenger
     request = BetRequest.find(:first, :conditions => ['user_id != ?', user_id])
@@ -41,6 +58,18 @@ class Bet < ActiveRecord::Base
   end
   
   private 
+  
+  def has_condition
+    errors.add('', 'Bet Condition is required') if bet_conditions.length == 0 || bet_conditions[0].condition.length == 0
+  end
+  
+  def has_prize
+    errors.add('', 'Prize is required') if prize.name.length == 0
+  end
+  
+  def has_challenger
+    errors.add('', 'Challenger does not exist') if bet_requests.length < 2 || bet_requests[1].user_id.nil?
+  end
   
   def is_bettor(bet_object)
     (bet_object.user_id.equal? user_id) && (bet_object.bet_id.equal? id)    
