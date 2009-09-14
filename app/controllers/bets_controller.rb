@@ -3,17 +3,11 @@ class BetsController < ApplicationController
    @users = User.find(:all, :conditions => ['id != ?', current_user.id])
    
    if session[:bet].nil?
-     @bet = Bet.new
-     @prize = Prize.new
-     @bet_condition = BetCondition.new
-   else
-     @bet = session[:bet]
-     @prize_name = session[:prize_name]
-     @challenger = session[:challenger]
-     # @user_condition = session[:user_condition]
-     # @challenger_condition = session[:challenger_condition]
-   end
-   session[:bet] = nil
+        @bet = Bet.new
+      else
+        @bet = session[:bet]
+      end
+      session[:bet] = nil
   end
   
   def create  
@@ -27,19 +21,18 @@ class BetsController < ApplicationController
     user_request = BetRequest.new(:user_id => current_user.id, :has_accepted => true)
     bet.bet_requests.push(user_request)
 
-    challenger = User.find(:first, :conditions => ['login = ?', bet_array[:challenger_login]])    
-      
-    challenger_request = BetRequest.new(:user_id => challenger, :has_accepted => false)
-    bet.bet_requests.push(challenger_request)
+    challenger = User.find(:first, :conditions => ['login = ?', bet_array[:challenger_login]])      
+    if challenger
+      challenger_request = BetRequest.new(:user_id => challenger.id, :has_accepted => false)
+      bet.bet_requests.push(challenger_request)
+    end
 
     if bet.save
-      session[:bet] = nil
+      # session[:bet] = nil
       # BetNotifier.deliver_request_notification(current_user, challenger, bet)
       redirect_to dashboard_path
     else
-      # bet.delete
       session[:bet] = bet
-      session[:prize_name] = bet.prize_name
       
       redirect_to :action => 'new'
     end

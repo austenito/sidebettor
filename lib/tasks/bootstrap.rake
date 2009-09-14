@@ -40,20 +40,31 @@ namespace :bootstrap do
         :email => 'admin@admin.com',
         :password_confirmation => 'admin',
         :password => 'admin')      
-        
-       bet = Bet.create(:title => "Admin times out in 5 seconds", :end_date => Date.today, :user_id => default.id, 
-                        :created_at => Date.today, :updated_at => Date.today)
-       BetRequest.create(:has_accepted => true, :bet_id => bet.id, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)
-       BetRequest.create(:has_accepted => false, :bet_id => bet.id, :user_id => admin.id, :created_at => Date.today, :updated_at => Date.today)
-       Prize.create(:bet_id => bet.id, :name => "Default Prize")
-       BetCondition.create(:bet_id => bet.id, :condition => "First bet condition")
-       
-       bet = Bet.create(:title => "Default does nothing", :end_date => Date.today, :user_id => admin.id, 
-                        :created_at => Date.today, :updated_at => Date.today)
-       BetRequest.create(:has_accepted => true, :bet_id => bet.id, :user_id => admin.id, :created_at => Date.today, :updated_at => Date.today)
-       BetRequest.create(:has_accepted => false, :bet_id => bet.id, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)                
-       Prize.create(:bet_id => bet.id, :name => "Admin Prize")
-       BetCondition.create(:bet_id => bet.id, :condition => "Second bet condition")
+              
+       user_request = BetRequest.create(:has_accepted => true, :bet_id => 1, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)
+       challenger_request = BetRequest.create(:has_accepted => false, :bet_id => 1, :user_id => admin.id, :created_at => Date.today, :updated_at => Date.today)
+       prize = Prize.create(:bet_id => 1, :name => "Default Prize")
+       bet_condition = BetCondition.create(:bet_id => 1, :condition => "First bet condition")
+
+       bet = Bet.new(:title => "Admin times out in 5 seconds", :end_date => Date.today, :user_id => default.id, 
+                         :created_at => Date.today, :updated_at => Date.today)
+       bet.bet_requests.push(user_request)
+       bet.bet_requests.push(challenger_request)
+       bet.prize = prize
+       bet.bet_conditions.push(bet_condition)
+       bet.save
+           
+       user_request = BetRequest.create(:has_accepted => true, :bet_id => 2, :user_id => admin.id, :created_at => Date.today, :updated_at => Date.today)
+       challenger_request = BetRequest.create(:has_accepted => false, :bet_id => 2, :user_id => default.id, :created_at => Date.today, :updated_at => Date.today)                
+       prize = Prize.create(:bet_id => 2, :name => "Admin Prize")
+       bet_condition = BetCondition.create(:bet_id => 2, :condition => "Second bet condition")
+       bet = Bet.new(:title => "Default does nothing", :end_date => Date.today, :user_id => admin.id, 
+                         :created_at => Date.today, :updated_at => Date.today)       
+       bet.bet_requests.push(user_request)
+       bet.bet_requests.push(challenger_request)
+       bet.prize = prize
+       bet.bet_conditions.push(bet_condition)
+       bet.save
    end
    
    desc "Adds the betting types"

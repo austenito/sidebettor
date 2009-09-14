@@ -9,6 +9,8 @@ describe BetsController do
     
     @bet_attributes = {:title => '', :user_id => 1, :prize => {:name => "prize name"}, 
                                                     :bet_condition => "bet_condition"}
+                                                    
+    @invalid_bet_attributes = {:title => '', :user_id => 1}                          
   end
       
   # note that user_id parameter returns the same id because the UserSession.create mock 
@@ -16,28 +18,48 @@ describe BetsController do
   it "Should redirect to the dashboard when a new bet is successfully created" do
     bet_mock = mock(Bet)
     Bet.should_receive(:new).and_return(bet_mock)
-    bet_mock.should_receive(:save).twice.and_return(true)    
     bet_mock.should_receive(:build_prize).once
-    # bet_mock.should_receive(:create_bet_status).with({:is_completed => false, :is_pending => true})
-            
-    bet_condition_mock = mock(BetCondition)  
-    bet_mock.should_receive(:bet_conditions).once.and_return(bet_condition_mock)
-    bet_condition_mock.should_receive(:build).once.with({:condition=> "bet_condition" })
-
-    bet_request_mock = mock(BetRequest)  
-    bet_mock.should_receive(:bet_requests).twice.and_return(bet_request_mock)
-    bet_request_mock.should_receive(:build).once.with({:has_accepted => true, :user_id => 1} )
-    bet_request_mock.should_receive(:build).once.with({:has_accepted => false, :user_id => 1} )    
+    bet_mock.should_receive(:save).once.and_return(true)
+        
+    bet_conditions_array_mock = mock(Array)
+    bet_mock.should_receive(:bet_conditions).once.and_return(bet_conditions_array_mock)                
     
-    get 'create', :bet => @bet_attributes
+    bet_condition_mock = mock(BetCondition)  
+    BetCondition.should_receive(:new).once.with({:condition=> "bet_condition" })
+    bet_conditions_array_mock.should_receive(:push).once
+    
+    bet_requests_array_mock = mock(Array)
+    bet_mock.should_receive(:bet_requests).and_return(bet_requests_array_mock)    
+    
+    bet_request_mock = mock(BetRequest)  
+    BetRequest.should_receive(:new).once.with({:has_accepted => true, :user_id => 1} )    
+    bet_requests_array_mock.should_receive(:push)
+    
+    get 'create', :bet => @bet_attributes    
     response.should redirect_to(dashboard_path)
   end
   
   it "Should not redirect to dashboard when a new bet fails to be created" do
     bet_mock = mock(Bet)
     Bet.should_receive(:new).and_return(bet_mock)
-    bet_mock.should_receive(:save).once.and_return(false)    
-    get 'create', :bet => @bet_attributes
+    bet_mock.should_receive(:build_prize).once
+    bet_mock.should_receive(:save).once.and_return(true)
+        
+    bet_conditions_array_mock = mock(Array)
+    bet_mock.should_receive(:bet_conditions).once.and_return(bet_conditions_array_mock)                
+    
+    bet_condition_mock = mock(BetCondition)  
+    BetCondition.should_receive(:new).once
+    bet_conditions_array_mock.should_receive(:push).once
+    
+    bet_requests_array_mock = mock(Array)
+    bet_mock.should_receive(:bet_requests).and_return(bet_requests_array_mock)    
+    
+    bet_request_mock = mock(BetRequest)  
+    BetRequest.should_receive(:new).once.with({:has_accepted => true, :user_id => 1} )    
+    bet_requests_array_mock.should_receive(:push)
+    
+    get 'create', :bet => @invalid_bet_attributes    
   end
   
   it "Should delete an existing bet" do

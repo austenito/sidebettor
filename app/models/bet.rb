@@ -10,11 +10,16 @@ class Bet < ActiveRecord::Base
   validate :has_condition, :has_prize, :has_challenger
 
   def challenger_login
-    user.login if user
-  end
-
-  def challenger_login=(login)
-    self.user = User.find_by_login(login) unless login.blank?
+    puts bet_requests.length
+    for bet_request in bet_requests
+      puts bet_request.to_yaml
+      
+      puts bet_request.user_id != user.id
+      if !bet_request.user_id.nil? && bet_request.user_id != user.id
+        return User.find(bet_request.user_id).login
+      end
+    end
+    nil
   end
   
   def prize_name
@@ -23,29 +28,6 @@ class Bet < ActiveRecord::Base
   
   def bet_condition
     bet_conditions[0].condition if bet_conditions.length > 0
-  end
-  
-  def get_challenger
-    request = BetRequest.find(:first, :conditions => ['user_id != ?', user_id])
-    User.find(:first, :conditions => ['id = ?', request.user_id])
-  end
-    
-  def get_bettor_condition
-    for condition in bet_conditions
-      if is_bettor(condition)
-        return condition
-      end
-    end
-    BetCondition.new    
-  end
-  
-  def get_challenger_condition
-    for condition in bet_conditions
-      if !is_bettor(condition)
-        return condition
-      end
-    end
-    BetCondition.new    
   end
   
   def is_participant(user_id)
@@ -60,18 +42,14 @@ class Bet < ActiveRecord::Base
   private 
   
   def has_condition
-    errors.add('', 'Bet Condition is required') if bet_conditions.length == 0 || bet_conditions[0].condition.length == 0
+    errors.add('', 'Bet Condition is required') if bet_conditions.length == 0 || bet_conditions[0].condition.blank?
   end
   
   def has_prize
-    errors.add('', 'Prize is required') if prize.name.length == 0
+    errors.add('', 'Prize is required') if prize.name.blank?
   end
   
   def has_challenger
     errors.add('', 'Challenger does not exist') if bet_requests.length < 2 || bet_requests[1].user_id.nil?
-  end
-  
-  def is_bettor(bet_object)
-    (bet_object.user_id.equal? user_id) && (bet_object.bet_id.equal? id)    
   end
 end
