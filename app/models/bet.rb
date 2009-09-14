@@ -2,7 +2,6 @@ class Bet < ActiveRecord::Base
   has_many :bet_conditions, :dependent => :delete_all
   has_many :bet_requests, :dependent => :delete_all
   has_one :prize, :dependent => :delete, :validate => true
-  has_one :bet_status, :dependent => :delete
   belongs_to :user
   has_and_belongs_to_many :users  
   
@@ -10,11 +9,7 @@ class Bet < ActiveRecord::Base
   validate :has_condition, :has_prize, :has_challenger
 
   def challenger_login
-    puts bet_requests.length
     for bet_request in bet_requests
-      puts bet_request.to_yaml
-      
-      puts bet_request.user_id != user.id
       if !bet_request.user_id.nil? && bet_request.user_id != user.id
         return User.find(bet_request.user_id).login
       end

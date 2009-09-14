@@ -18,7 +18,7 @@
                              :bet_id => @bet.id} , :method => :put %>
       <%= link_to "Deny", {:controller => "bet_requests", :action => "update", :bet_id => @bet.id} , :method => :put %>        
     <% else %>
-      <%= link_to "Cancel", bet_path(@bet), :action => "update" %>         
+      <%= link_to "Cancel", bet_path(@bet), :action => "destroy", :method => :delete %>         
     <% end %>
   <% end %>
   </div>    
