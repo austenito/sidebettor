@@ -9,6 +9,7 @@ describe BetsController do
     
     @bet_attributes = {:title => '', :user_id => 1, :prize => {:name => "prize name"}, 
                                                     :bet_condition => "bet_condition"}
+    @date_attributes = {:month => "10", :day => "12", :year => "2009"}                                                   
                                                     
     @invalid_bet_attributes = {:title => '', :user_id => 1}                          
   end
@@ -35,7 +36,7 @@ describe BetsController do
     BetRequest.should_receive(:new).once.with({:has_accepted => true, :user_id => 1} )    
     bet_requests_array_mock.should_receive(:push)
     
-    get 'create', :bet => @bet_attributes    
+    get 'create', :bet => @bet_attributes, :date => @date_attributes
     response.should redirect_to(dashboard_path)
   end
   
@@ -59,7 +60,7 @@ describe BetsController do
     BetRequest.should_receive(:new).once.with({:has_accepted => true, :user_id => 1} )    
     bet_requests_array_mock.should_receive(:push)
     
-    get 'create', :bet => @invalid_bet_attributes    
+    get 'create', :bet => @invalid_bet_attributes, :date => @date_attributes 
   end
   
   it "Should delete an existing bet" do

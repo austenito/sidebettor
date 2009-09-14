@@ -4,15 +4,18 @@ class BetsController < ApplicationController
    
    if session[:bet].nil?
         @bet = Bet.new
+        @date = Date.today
       else
         @bet = session[:bet]
+        @date = @bet.end_date
       end
       session[:bet] = nil
   end
   
   def create  
     bet_array = params[:bet]    
-    bet = Bet.new(:title => bet_array[:title], :end_date => Date.today, :user_id => current_user.id)        
+    end_date = create_date(params[:date])
+    bet = Bet.new(:title => bet_array[:title], :end_date => end_date, :user_id => current_user.id)        
     bet.build_prize(:name => bet_array[:prize_name])
 
     bet_condition = BetCondition.new(:condition => bet_array[:bet_condition])
@@ -33,7 +36,6 @@ class BetsController < ApplicationController
       redirect_to dashboard_path
     else
       session[:bet] = bet
-      
       redirect_to :action => 'new'
     end
   end
@@ -61,5 +63,12 @@ class BetsController < ApplicationController
       bet.destroy
     end
     redirect_to dashboard_path
-  end  
+  end 
+  
+  private
+  
+  def create_date(date_hash)
+    Date.new(date_hash[:year].to_i, m=date_hash[:month].to_i, d=date_hash[:day].to_i)
+  end
+     
 end

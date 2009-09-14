@@ -9,6 +9,8 @@
   <div class="grid_14"><%= @bet.challenger_login %></div>  
   <div class="grid_2">Conditions:</div>  
   <div class="grid_14"><%= @bet.bet_conditions[0].condition %></div>
+  <div class="grid_2">End Date:</div>    
+  <div class="grid_14"><%= @bet.end_date %></div>
   <div class="grid_4">
   <% if @bet.is_participant(current_user.id) %>  
     <% if @bet.is_active %>

@@ -6,8 +6,8 @@ class Bet < ActiveRecord::Base
   has_and_belongs_to_many :users  
   
   validates_presence_of :title, :message => 'is required'
-  validate :has_condition, :has_prize, :has_challenger
-
+  validate :has_condition, :has_prize, :has_challenger, :is_end_date_after_today
+  
   def challenger_login
     for bet_request in bet_requests
       if !bet_request.user_id.nil? && bet_request.user_id != user.id
@@ -46,5 +46,9 @@ class Bet < ActiveRecord::Base
   
   def has_challenger
     errors.add('', 'Challenger does not exist') if bet_requests.length < 2 || bet_requests[1].user_id.nil?
+  end
+  
+  def is_end_date_after_today
+    errors.add('', 'End date must be today or later') if end_date < Date.today
   end
 end

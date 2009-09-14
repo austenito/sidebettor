@@ -71,4 +71,8 @@ describe Bet do
     bet = Bet.create!(@valid_attributes)    
     bet.is_participant(14).should == false
   end
+  
+  it "should set end date" do
+    
+  end
 end

@@ -26,7 +26,15 @@
                                       { :url => users_path, 
                                         :method => :get, :param_name => 'search' } %>
     </div>
-  
+
+    <div class="grid_16">
+      End Date
+      <%= select_date(@date, :start_year => Date.today.year, :start_day => 5,
+                                                :prompt => { :month => 'Select month', 
+                                                         :day => 'Select day', 
+                                                         :year => 'Select year' }, 
+                                                :order => [:month, :day, :year]) %>
+    </div>  
     <div class="grid_16"><%= bet_form.submit "Create Bet" %></div>
   <% end %>
   
