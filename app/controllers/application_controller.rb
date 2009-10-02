@@ -2,6 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  rescue_from Exception, :with => :render_404
   helper :all
    helper_method :current_user_session, :current_user
    filter_parameter_logging :password, :password_confirmation
@@ -42,5 +43,9 @@ class ApplicationController < ActionController::Base
      def redirect_back_or_default(default)
        redirect_to(session[:return_to] || default)
        session[:return_to] = nil
+     end
+     
+     def render_404
+       render :template => 'error_pages/404', :layout => false, :status => :not_found
      end
 end
