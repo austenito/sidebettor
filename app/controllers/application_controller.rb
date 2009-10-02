@@ -46,6 +46,10 @@ class ApplicationController < ActionController::Base
      end
      
      def render_404
-       render :template => 'error_pages/404', :layout => false, :status => :not_found
+       if current_user
+         render :template => 'error_pages/404', :layout => false, :status => :not_found
+       else
+         redirect_to new_user_session_url
+       end
      end
 end
