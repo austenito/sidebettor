@@ -8,11 +8,19 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>SideBettor</title>
   <%= stylesheet_link_tag '960' %>
-  <%= stylesheet_link_tag 'business_style' %>  
+  <%= stylesheet_link_tag 'style' %>  
+  <%= stylesheet_link_tag '2_col_liquid' %>  
 </head>
 <body>
-<p style="color: green"><%= flash[:notice] %></p>
-  <%= render :partial => 'layouts/top' %>
-  <%= yield  %>
+  <div id="main_wrapper">
+    <%= render :partial => 'layouts/header' %>
+    <p style="color: green"><%= flash[:notice] %></p>
+    
+  <div id="content">
+    <div id="content_inner">  
+      <%= yield  %>
+    </div> <!-- end content_inner -->
+  </div> <!-- end content -->
+  </div> <!-- end main_wrapper -->  
 </body>
 </html>

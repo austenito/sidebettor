@@ -1,0 +1,57 @@
+/* TWO COLUMN LAYOUT */
+
+body {
+	text-align:center; /* IE6 needs this to center the layout in the browser window */
+	}
+#main_wrapper {
+	max-width:960px; /* sets max layout width */
+	min-width:720px; /* sets min layout width */
+	margin-left:auto;  /* centers layout in browser */
+	margin-right:auto; /* centers layout in browser */
+	text-align:left; /* resets the centering hack for IE6 on the body tag */
+	}
+#header {
+	padding: 0em 0em 0em 1em;
+}
+#nav {
+  padding: 1em;	
+}
+#content {
+	/* default auto width */
+	}
+/* here comes a hack for IE6 */
+/* floating this element gets rid of the gap between the nav and content - the hateful 3 pixel jog bug in IE */
+/* if I float this element in other browsers, the layout breaks - don't remove this comment \*/
+* html #content { 
+	float:left; 
+	}
+/* end of hack - don't remove this comment */
+#footer {
+	clear:both; /* makes the footer sit below whichever column is longest */
+	background:#DDC; /* TEMP - REMOVE OR RESTYLE  */
+	}
+#header_inner, #nav_inner, #content_inner, #promo_inner {
+	overflow:hidden; /* clips oversize elements that would otherwise expand divs and break the layout */
+	}
+#header_inner { 
+	padding:.5em 0em .5em 0em; /* creates space between the box  and the content */
+	}
+#nav_inner {
+
+	}
+#content_inner { 
+	padding:0em 1em 1em 1em; /* creates space between the box and the content */
+	}
+#footer_inner {
+	padding:.5em 1em; /* creates space between the box and the content */
+	text-align:center;
+	}
+	
+#dashboard_title {
+	padding: 0em 0em 0.5em 0em;
+}	
+#dashboard_inner {
+	padding: 0em 0em 0em 1em;
+}
+	
+* html { 

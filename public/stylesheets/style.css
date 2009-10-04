@@ -1,0 +1,64 @@
+body {
+	font-family: verdana, arial, sans-serif;
+	font-size: .8em;
+}
+h1 {
+	font-size: 2.5em;
+}
+
+h3 {
+	font-size: 1.5em;
+	border-style: solid;
+}
+
+a:link, a:visited {
+	color: #006600;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#nav a:visited {
+	color:#FFF;
+	text-decoration: none;
+}
+
+#nav a:link {
+	color: #FFF;
+	text-decoration: none;
+}
+
+#nav a:hover {
+	text-decoration: underline;
+}
+
+	
+li {
+	list-style: none;
+}
+
+#nav_title {
+	font-family: arial black, sans-serif;
+	font-size: 1.8em;
+	color: white;
+}
+#header {
+	background: #006600;
+}
+
+#dashboard_title {
+	font-style: bold;
+	font-size: 1.5em;
+}
+
+#dashboard_empty {
+	font-style: italic;
+}
+
+
+
+
+
+

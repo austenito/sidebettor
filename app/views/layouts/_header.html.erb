@@ -1,0 +1,15 @@
+<div id="header">
+	<div id="header_inner">
+		<span id="nav_title">SideBettor</span>	  
+		<span id="nav">
+    <% if current_user != nil %>
+      <%= link_to "Home", dashboard_path %>
+      <%= link_to "Create Bet", new_bet_path %>    
+      <%= link_to "Settings", user_path(current_user) %>
+      <%= link_to 'Logout', user_session_path, :method => :delete %>
+    <% else %>
+      <%= link_to 'Login', user_session_path %>
+    <% end %>
+    </span>
+ 	</div><!-- end header_inner -->
+</div><!-- end header -->

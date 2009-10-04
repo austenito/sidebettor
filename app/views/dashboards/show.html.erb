@@ -1,33 +1,28 @@
-<div class="container_16">  
-    
-  <div class="grid_16"><h1>Active Bets</h1></div>  
-  <div id="bet_container">
-    <%= render :partial => 'bet_header' %>
+<div id="dashboard_title">Active Bets</div
+<div id="dashboard_inner">
+    <%= render :partial => 'missing_bets', :locals => {:is_bets_empty => @user_bets.empty?} %>
     <% for user_bet in @user_bets %>
-      <div class="grid_5"><%= link_to user_bet.title, bet_path(user_bet) %></div>
-      <div class="grid_5"><%= user_bet.challenger_login %></div>
-      <div class="grid_6"><%= user_bet.prize.name %></div>    
+      <%= link_to user_bet.title, bet_path(user_bet) %> vs. <%= pending_bet.challenger_login %>
+      <br/>
     <% end%>
-  </div>
+</div>
 
-  <div class="grid_16"><h1>Pending Bets</h1></div>          
-  <div id="bet_container" class="container_16">  
-    <%= render :partial => 'bet_header' %>  
-    <% for pending_bet in @pending_bets %>
-      <div class="grid_5"><%= link_to pending_bet.title, bet_path(pending_bet) %></div>
-      <div class="grid_5"><%= pending_bet.challenger_login %></div> 
-      <div class="grid_6"><%= pending_bet.prize.name %></div>            
-    <% end%>    
-  </div>  
-  
-  <div class="grid_16"><h1>Bet Requests</h1></div>  
-  <div class="grid_5"><h3>Title</h3></div>
-  <div class="grid_5 suffix_6"><h3>Prize</h3></div>
-  
-  <div id="bet_container" class="container_16">
-    <% for requested_bet in @requested_bets %>
-        <div class="grid_5"><%= link_to requested_bet.title, bet_path(requested_bet) %></div>
-        <div class="grid_7"><%= requested_bet.prize.name %></div>
-    <% end %>
-  </div>
-</div>  
+<p/>
+<div id="dashboard_title">Pending Bets</div>              
+<div id="dashboard_inner">
+  <%= render :partial => 'missing_bets', :locals => {:is_bets_empty => @pending_bets.empty?} %>
+  <% for pending_bet in @pending_bets %>
+   <%= link_to pending_bet.title, bet_path(pending_bet) %> vs. <%= pending_bet.challenger_login %>
+   <br/> 
+  <% end%>    
+</div>
+
+<p/>
+<div id="dashboard_title">Bet Requests</div>
+<div id="dashboard_inner"> 
+  <%= render :partial => 'missing_bets', :locals => {:is_bets_empty => @requested_bets.empty?} %>
+  <% for requested_bet in @requested_bets %>
+    <%= link_to requested_bet.title, bet_path(requested_bet) %> vs. <%= pending_bet.challenger_login %>
+    <br/>
+  <% end %>
+</div>

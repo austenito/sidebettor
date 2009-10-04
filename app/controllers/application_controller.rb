@@ -2,7 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  rescue_from Exception, :with => :render_404
+  # rescue_from Exception, :with => :render_404
   helper :all
    helper_method :current_user_session, :current_user
    filter_parameter_logging :password, :password_confirmation

@@ -12,8 +12,6 @@
 
 body
     {
-    margin: 0;
-    padding: 0;
     color: #333;
     font: 13px Trebuchet MS, Lucida Sans Unicode, Arial, sans-serif;
     background: #E2EBED;
@@ -36,7 +34,6 @@ h1
     width: 156px;
     height: 30px;
     overflow: hidden;
-    margin: 0;
     }
 h1 span
     {
@@ -47,16 +44,3 @@ h2
     font-size: 12px;
     margin: 0;
     }
-
-#bet_container
-    {
-    padding-bottom: 125px;
-    }
-/*#quickSummary .p2
-    {
-    font-size: 12px;
-    position: absolute;
-    top: 65px;
-    right: 20px;
-    margin: 0;
-    }*/
