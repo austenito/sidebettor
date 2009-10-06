@@ -1,41 +1,33 @@
-<div class="container_16">
-  <div class="grid_16"><%= error_messages_for 'bet', 'prize' %></div>  
-  <div class="grid_16"><h1>Create a bet</h1></div>
-
+<%= error_messages_for 'bet', 'prize' %>
+<% form_for @bet, do |bet_form| %>  
+  <%= bet_form.label :title %>
   <div>
-  <% form_for @bet, do |bet_form| %>  
-    <div class="grid_16">
-      <%= bet_form.label :title %>
-      <%= bet_form.text_field :title %>
-    </div>
-    
-  <div class="grid_16">
-    <%= bet_form.label :prize %>
+    <%= bet_form.text_field :title %>
+  </div>
+  
+  
+  <%= bet_form.label :prize %>
+  <div>
     <%= bet_form.text_field :prize_name %>
   </div>
   
-  <div class="grid_16">
-    <%= bet_form.label 'Bet Condition' %>
-    <br>
-    <%= bet_form.text_area :bet_condition, :size => '100x5' %>
-  </div>  
+  <p/>
+  <%= bet_form.label 'Bet Condition' %><br/>
+  <%= bet_form.text_area :bet_condition, :size => '100x5' %>
   
-    <div class="grid_16">
-    <%= bet_form.label :challenger %>      
-    <%= text_field_with_auto_complete :bet, :challenger_login, { :size => 15 }, 
+  <p/>
+  <%= bet_form.label :challenger %>      
+  <%= text_field_with_auto_complete :bet, :challenger_login, { :size => 15 }, 
                                       { :url => users_path, 
                                         :method => :get, :param_name => 'search' } %>
-    </div>
-
-    <div class="grid_16">
-      End Date
-      <%= select_date(@date, :start_year => Date.today.year, :start_day => 5,
-                                                :prompt => { :month => 'Select month', 
-                                                         :day => 'Select day', 
-                                                         :year => 'Select year' }, 
-                                                :order => [:month, :day, :year]) %>
-    </div>  
-    <div class="grid_16"><%= bet_form.submit "Create Bet" %></div>
-  <% end %>
   
-</div>
+  <p/>
+  End Date
+  <%= select_date(@date, :start_year => Date.today.year, :start_day => 5,
+                                                :prompt => { :month => 'Select month', 
+                                                :day => 'Select day', 
+                                                :year => 'Select year' }, 
+                                                :order => [:month, :day, :year]) %>
+  <p/>  
+  <%= bet_form.submit "Create Bet" %>
+  <% end %>

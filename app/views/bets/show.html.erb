@@ -1,17 +1,10 @@
-<div class="container_16">  
-  <div class="grid_2">Title:</div>
-  <div class="grid_14"><%= @bet.title %></div>      
-  <div class="grid_2">Prize:</div>  
-  <div class="grid_14"><%= @bet.prize.name %></div>    
-  <div class="grid_2">Creator:</div>  
-  <div class="grid_14"><%= @bet.user.login %></div>  
-  <div class="grid_2">Challenger:</div>  
-  <div class="grid_14"><%= @bet.challenger_login %></div>  
-  <div class="grid_2">Conditions:</div>  
-  <div class="grid_14"><%= @bet.bet_conditions[0].condition %></div>
-  <div class="grid_2">End Date:</div>    
-  <div class="grid_14"><%= @bet.end_date %></div>
-  <div class="grid_4">
+Title: <%= @bet.title %><br/>
+Prize: <%= @bet.prize.name %><br/>    
+Creator: <%= @bet.user.login %><br/>  
+Challenger: <%= @bet.challenger_login %><br/>  
+Conditions: <%= @bet.bet_conditions[0].condition %><br/>
+End Date: <%= @bet.end_date.strftime("%B %d, %Y") %><br/>
+
   <% if @bet.is_participant(current_user.id) %>  
     <% if @bet.is_active %>
       <%= link_to "Complete", bet_path(@bet), :action => "update" %>         
@@ -20,8 +13,6 @@
                              :bet_id => @bet.id} , :method => :put %>
       <%= link_to "Deny", {:controller => "bet_requests", :action => "update", :bet_id => @bet.id} , :method => :put %>        
     <% else %>
-      <%= link_to "Cancel", bet_path(@bet), :action => "destroy", :method => :delete %>         
+      <%= link_to "Cancel Bet", bet_path(@bet), :action => "destroy", :method => :delete %>         
     <% end %>
   <% end %>
-  </div>    
-</div>

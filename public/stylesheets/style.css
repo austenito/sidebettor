@@ -34,11 +34,6 @@ a:hover {
 	text-decoration: underline;
 }
 
-	
-li {
-	list-style: none;
-}
-
 #nav_title {
 	font-family: arial black, sans-serif;
 	font-size: 1.8em;
@@ -48,6 +43,9 @@ li {
 	background: #006600;
 }
 
+#header_user {
+	color: white;
+}
 #dashboard_title {
 	font-style: bold;
 	font-size: 1.5em;

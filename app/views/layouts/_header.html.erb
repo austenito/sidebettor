@@ -4,11 +4,11 @@
 		<span id="nav">
     <% if current_user != nil %>
       <%= link_to "Home", dashboard_path %>
-      <%= link_to "Create Bet", new_bet_path %>    
+      <%= link_to "Create", new_bet_path %>    
       <%= link_to "Settings", user_path(current_user) %>
-      <%= link_to 'Logout', user_session_path, :method => :delete %>
+      <%= link_to 'Logout', user_session_path, :method => :delete %> <span id="header_user">[<%= current_user.login %>]</span>
     <% else %>
-      <%= link_to 'Login', user_session_path %>
+      <%= link_to 'Login', '/login' %>
     <% end %>
     </span>
  	</div><!-- end header_inner -->

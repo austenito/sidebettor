@@ -10,11 +10,13 @@
 <p/>
 <div id="dashboard_title">Pending Bets</div>              
 <div id="dashboard_inner">
+  <ol>
   <%= render :partial => 'missing_bets', :locals => {:is_bets_empty => @pending_bets.empty?} %>
   <% for pending_bet in @pending_bets %>
-   <%= link_to pending_bet.title, bet_path(pending_bet) %> vs. <%= pending_bet.challenger_login %>
-   <br/> 
+   <li><%= link_to pending_bet.title, bet_path(pending_bet) %> vs. <%= pending_bet.challenger_login %></li>
+    
   <% end%>    
+  </ol>
 </div>
 
 <p/>
